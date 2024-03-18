@@ -6,6 +6,10 @@
 	-BRUNO MARQUES
 	</br> 
 
+    <br>
+    -LUIS CARLOS
+    </br>
+
 ##Lista de tarefas
 
 

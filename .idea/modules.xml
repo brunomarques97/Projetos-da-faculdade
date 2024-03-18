@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaApplication29/JavaApplication29.iml" filepath="$PROJECT_DIR$/JavaApplication29/JavaApplication29.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Projetos-da-faculdade.iml" filepath="$PROJECT_DIR$/.idea/Projetos-da-faculdade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projeto intregador III-a/projeto intregador III-a.iml" filepath="$PROJECT_DIR$/projeto intregador III-a/projeto intregador III-a.iml" />
+    </modules>
+  </component>
+</project>
