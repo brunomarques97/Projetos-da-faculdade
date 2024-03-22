@@ -1,12 +1,10 @@
-
-
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class JavaApplication29 {
 
     public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
-        int opcao = 0;
+        //Scanner entrada = new Scanner(System.in);
+        //int opcao = 0;
         
         Aluno aluno = new Aluno();
         aluno.setNome("teste");
