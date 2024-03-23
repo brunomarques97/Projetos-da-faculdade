@@ -30,11 +30,11 @@ public class Aluno {
         this.CPF = CPF;
     }
 
-    public String getEndereço() {
+    public String getEndereco() {
         return endereço;
     }
 
-    public void setEndereço(String endereço) {
+    public void setEndereco(String endereço) {
         this.endereço = endereço;
     }
 

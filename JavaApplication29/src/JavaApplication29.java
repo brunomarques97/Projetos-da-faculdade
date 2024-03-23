@@ -1,6 +1,10 @@
-import java.util.ArrayList;
-//import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import java.util.Calendar;
+//import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class JavaApplication29 {
 
@@ -19,39 +23,66 @@ public class JavaApplication29 {
             switch (opcao) {
                 case 1:
                 
-                ArrayList<Aluno> listaAlunos = new ArrayList<>();
+                //ArrayList<Aluno> listaAlunos = new ArrayList<>();
                     
                 System.out.println("Opção Cadastrar selecionada.");
 
-                        Aluno aluno1 = new Aluno();
+                    //aluno 1
+
+                        Aluno aluno = new Aluno();
+
                         System.out.println("Digite seu Aluno 1: ");
-                        String nome1 = entrada.nextLine();
-                        aluno1.setNome(nome1);
+                        String nome = entrada.nextLine();
+                        aluno.setNome(nome);
 
-                        Aluno aluno2 = new Aluno();
-                        System.out.println("Digite seu Aluno 2: ");
-                        String nome2 = entrada.nextLine();
-                        aluno2.setNome(nome2);
-                        
-                        Aluno aluno3 = new Aluno();
-                        System.out.println("Digite seu Aluno 3: ");
-                        String nome3 = entrada.nextLine();
-                        aluno3.setNome(nome3);
+                        System.out.println("Digite seu CPF: ");
+                        String cpf = entrada.nextLine();
+                        aluno.setCPF(cpf);
 
-                        Aluno aluno4 = new Aluno();
-                        System.out.println("Digite seu Aluno 4: ");
-                        String nome4 = entrada.nextLine();
-                        aluno4.setNome(nome4);
+                        System.out.println("Digite seu Endereço: ");
+                        String endereco = entrada.nextLine();
+                        aluno.setEndereco(endereco);
 
-                        listaAlunos.add(aluno1);
-                        listaAlunos.add(aluno2);
-                        listaAlunos.add(aluno3);
-                        listaAlunos.add(aluno4);
+                        System.out.println("Digite sua Data de Nascimento (dd/MM/yyyy): ");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        String nascimento = entrada.nextLine();
+                        aluno.setDataNascimento(nascimento);
+                    
+                    //calcula a idade
+                    try {
+                        Date dataNascimento = sdf.parse(nascimento);
+                        Calendar dateOfBirth = Calendar.getInstance();
+                        dateOfBirth.setTime(dataNascimento);
 
-                        for (Aluno aluno : listaAlunos) {
-                            System.out.println("Nome do aluno: " + aluno.getNome());
+                        Calendar hoje = Calendar.getInstance();
+        
+                        int idade = hoje.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+            
+                        // Verifica se o mês e o dia de nascimento já ocorreram no ano atual
+                        if (hoje.get(Calendar.MONTH) < dateOfBirth.get(Calendar.MONTH) ||
+                            (hoje.get(Calendar.MONTH) == dateOfBirth.get(Calendar.MONTH) &&
+                            hoje.get(Calendar.DAY_OF_MONTH) < dateOfBirth.get(Calendar.DAY_OF_MONTH))) {
+                            idade--;
                         }
-                        System.out.println(listaAlunos.size());
+                
+
+                        String[] aluno1 = new String[4];
+
+                        aluno1[0] = nome;
+                        aluno1[1] = cpf;
+                        aluno1[2] = endereco;
+                        aluno1[3] = "" + idade;
+
+                        System.out.println(hoje);
+                        System.out.println("\nInformações do Aluno:");
+                        System.out.println("Nome: " + aluno.getNome());
+                        System.out.println("CPF: " + aluno.getCPF());
+                        System.out.println("Endereço: " + aluno.getEndereco());
+                        System.out.println("Idade: " + idade + " anos");
+            
+                    }catch (ParseException e) {
+                        System.out.println("Data inválida! Certifique-se de usar o formato dd/MM/yyyy.");
+                    }
                     break;
                 case 2:
                     System.out.println("Opção Consultar selecionada.");
