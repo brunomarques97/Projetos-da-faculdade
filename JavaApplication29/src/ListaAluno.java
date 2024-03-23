@@ -1,9 +1,12 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListaAluno {
-    private static Aluno[] alunoArray = new Aluno[0];
+    private Aluno[] alunoArray = new Aluno[0];
     
     public void incluirNoInicio(Aluno aluno){
         Aluno[] alunoArrayCopia = new Aluno[alunoArray.length+1];
@@ -37,6 +40,12 @@ public class ListaAluno {
         alunoArrayCopia = null;
     }
     
+    public void ordenar(){
+        
+        Arrays.sort(alunoArray, Comparator.comparing(Aluno::getNome));
+        
+    }
+    
     public Aluno removerDoFim(){
         
         Aluno[] alunoArrayCopia = alunoArray.clone();
@@ -55,6 +64,18 @@ public class ListaAluno {
         
         alunoArrayCopia = null;
         return alunoRetorno;
+        
+    }
+    
+    public int tamanho(){
+        
+        return alunoArray.length;
+        
+    }
+    
+    public Aluno get(int posição){
+        
+        return alunoArray[posição];
         
     }
     

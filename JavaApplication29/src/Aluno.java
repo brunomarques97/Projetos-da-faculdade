@@ -1,3 +1,10 @@
+
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+
 public class Aluno {
     private String nome;
     private String CPF;
@@ -10,7 +17,18 @@ public class Aluno {
         this.endereço = endereço;
         this.dataNascimento = dataNascimento;
     }
-
+    
+    public int calcularIdadeDoAluno() throws ParseException{
+                      
+        DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate nascimento = LocalDate.parse(dataNascimento, dataFormato);
+        LocalDate dataAtual = LocalDate.now();
+        Period periodo = Period.between(nascimento, dataAtual);
+        
+        return periodo.getYears();
+        
+    }
+    
     public Aluno() {
     }
 

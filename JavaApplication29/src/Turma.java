@@ -7,10 +7,16 @@ public class Turma {
     private String ano;
     private int limiteVagas;
     private int numeroMatriculados;
-    private List<Aluno> alunosCadastrados = new ArrayList<>();
+    private ListaAluno listaDeAlunosDaTurma = new ListaAluno();
     
     public void cadastrarAluno(Aluno novoAluno){
-        alunosCadastrados.add(novoAluno);
+        listaDeAlunosDaTurma.incluirNoFim(novoAluno);
+    }
+    
+    public ListaAluno getListaAluno(){
+        
+        return listaDeAlunosDaTurma;
+        
     }
    
 
