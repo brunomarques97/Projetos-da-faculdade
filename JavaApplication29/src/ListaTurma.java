@@ -25,9 +25,103 @@ public class ListaTurma {
         
     }
     
-    public void printarTodosOsAlunos() throws ParseException{
+    public void printarAlunosDaTurma(int numeroTurma) throws ParseException{
         
-        int idade;
+        ListaAluno listaAluno = listaTurma.get(numeroTurma).getListaAluno();
+        
+        for(int i = 0; i < listaAluno.tamanho();i++){
+                       
+            System.out.println(listaAluno.get(i).getNome() + " - " + listaAluno.get(i).calcularIdadeDoAluno());
+            
+        }
+        
+    }
+    
+    public int quantidadeAlunosForaDaEtapaEnisno(String etapaEnsino) throws ParseException{
+        
+        List<Turma> listaTurmaEtapaEnsino = criarListaTurmaEtapaEnsino(etapaEnsino);
+        
+        ListaAluno listaDeAlunosTurma;
+        
+        Turma turma;
+        
+        int contador = 0;
+        
+        for(int i = 0; i < listaTurmaEtapaEnsino.size(); i++){
+        
+            turma = listaTurmaEtapaEnsino.get(i);
+                     
+            contador = quantidadeAlunosForaEtapaEnsinoTurma(turma.getListaAluno(),etapaEnsino);
+        
+        }
+        
+        return contador;
+        
+    }
+    
+    public int quantidadeAlunosForaEtapaEnsinoTurma(ListaAluno listaAluno, String etapaEnsino) throws ParseException{
+        
+        int contador = 0;
+        
+        for(int i = 0; i < listaAluno.tamanho(); i++){
+            
+            if(!checarIdadeNaEtapaEnsino(listaAluno.get(i).calcularIdadeDoAluno(), etapaEnsino)){
+                
+                contador++;
+                
+            }
+            
+        }
+        
+        return contador;
+        
+    }
+    
+    public boolean checarIdadeNaEtapaEnsino(int idade, String etapaEnsino){
+        
+        if(etapaEnsino == "infantil" && idade > 6){
+            
+            return false;
+            
+        }
+        if(etapaEnsino == "fundamental anos iniciais" && (idade < 6 || idade > 11)){
+            
+            return false;
+            
+        }
+        if(etapaEnsino == "fundamental anos finais" && (idade < 11 || idade > 15)){
+            
+            return false;
+            
+        }
+        if(etapaEnsino == "médio" && (idade < 15 || idade > 18)){
+            
+            return false;
+            
+        }
+        return true;
+    }
+    
+    public List<Turma> criarListaTurmaEtapaEnsino(String etapaEnsino){
+        
+        List<Turma> listaTurmaEtapaEnsino = new ArrayList<>();
+        
+        for(int i = 0; i < listaTurma.size(); i++){
+            
+            if(listaTurma.get(i).getEtapaEnsino() == etapaEnsino){
+                
+                listaTurmaEtapaEnsino.add(listaTurma.get(i));
+                
+            }
+            
+        }
+        
+        return listaTurmaEtapaEnsino;
+        
+    }
+    
+    
+    public void printarTodosOsAlunos() throws ParseException{
         
         ListaAluno listaDeAlunos = criarListaDeAlunosDaEscola();
         

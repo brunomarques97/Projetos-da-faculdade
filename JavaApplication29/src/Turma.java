@@ -6,12 +6,21 @@ public class Turma {
     private String etapaEnsino;
     private String ano;
     private int limiteVagas;
-    private int numeroMatriculados;
+    private int numeroMatriculados = 0;
     private ListaAluno listaDeAlunosDaTurma = new ListaAluno();
     
+    
+    //verificar retorno do erro caso não possua vagas na turma
     public void cadastrarAluno(Aluno novoAluno){
+        
+        if(numeroMatriculados < limiteVagas){
         listaDeAlunosDaTurma.incluirNoFim(novoAluno);
+        numeroMatriculados++;
+        
+        }
+        
     }
+    
     
     public ListaAluno getListaAluno(){
         
