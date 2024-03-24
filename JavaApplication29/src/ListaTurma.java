@@ -19,12 +19,6 @@ public class ListaTurma {
         
     }
     
-    public void criarTurma (Turma turma){
-        
-        listaTurma.add(turma);
-        
-    }
-    
     public void printarAlunosDaTurma(int numeroTurma) throws ParseException{
         
         ListaAluno listaAluno = listaTurma.get(numeroTurma).getListaAluno();

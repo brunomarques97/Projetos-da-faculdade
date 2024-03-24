@@ -17,6 +17,10 @@ public class Turma {
         listaDeAlunosDaTurma.incluirNoFim(novoAluno);
         numeroMatriculados++;
         
+        }else{
+        
+        System.out.println("Turma cheia! tente novamente");
+        
         }
         
     }
@@ -29,11 +33,10 @@ public class Turma {
     }
    
 
-    public Turma(String etapaEnsino, String ano, int limiteVagas, int numeroMatriculados) {
+    public Turma(String etapaEnsino, String ano, int limiteVagas) {
         this.etapaEnsino = etapaEnsino;
         this.ano = ano;
         this.limiteVagas = limiteVagas;
-        this.numeroMatriculados = numeroMatriculados;
     }
     
     public Turma(){

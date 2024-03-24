@@ -18,11 +18,8 @@ public class JavaApplication29 {
         Scanner entrada = new Scanner(System.in);
         int opcao = 0;
         ListaTurma listaTurma = new ListaTurma();
-        
-        /**
-        ListaTurma listaTurma = new ListaTurma();
-        
-        Turma turma = new Turma("primario","1",30,5);
+               
+        Turma turma = new Turma("primario","1",30);
         listaTurma.adicionarTurma(turma);
         
         Aluno aluno = new Aluno("Felipe","111","endereço","07/12/2003");
@@ -33,7 +30,7 @@ public class JavaApplication29 {
         listaTurma.adicionarAlunoNaTurma(aluno, 0);
         
         listaTurma.printarTodosOsAlunos();
-               **/
+               /**
         
 
     
@@ -44,27 +41,6 @@ public class JavaApplication29 {
             System.out.println("1-Cadastrar Aluno\n2-Cadastrar Turma\n3-Encerrar");
 
             opcao = entrada.nextInt();
-            /**
-
-            switch(opcao){
-                case 1:
-                    Aluno novoAluno = new Aluno();
-                    System.out.println("Cadastro de aluno");
-                    System.out.println("Digite o nome do aluno");
-                    novoAluno.setNome(entrada.nextLine());
-                    System.out.println("Digite o CPF do aluno");
-                    novoAluno.setCPF(entrada.nextLine());
-                    System.out.println("Digite o endereço do aluno");
-                    novoAluno.setEndereço(entrada.nextLine());
-                    System.out.println("Digite a data de nascimento do aluno");
-                    novoAluno.setDataNascimento(entrada.nextLine());
-                    System.out.println("Digite o codigo da turma na qual deseja cadastrar o aluno");
-                    
-                
-                
-            }
-        }while(opcao != 3);
-        ***/
 
             entrada.nextLine();
 
@@ -77,7 +53,7 @@ public class JavaApplication29 {
 
                         Aluno aluno = new Aluno();
 
-                        System.out.println("Digite seu Aluno 1: ");
+                        System.out.println("Digite seu Aluno: ");
                         aluno.setNome(entrada.nextLine());
 
                         System.out.println("Digite seu CPF: ");
@@ -115,6 +91,8 @@ public class JavaApplication29 {
 
     
         entrada.close(); 
+        *  */
     }
+    
     
 }
