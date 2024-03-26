@@ -19,21 +19,6 @@ public class JavaApplication29 {
         int opcao = 0;
         ListaTurma listaTurma = new ListaTurma();
                
-        Turma turma = new Turma("primario","1",30);
-        listaTurma.adicionarTurma(turma);
-        
-        Aluno aluno = new Aluno("Felipe","111","endereço","07/12/2003");
-        listaTurma.adicionarAlunoNaTurma(aluno, 0);
-        aluno = new Aluno("Luis","111","endereço","07/12/2000");
-        listaTurma.adicionarAlunoNaTurma(aluno, 0);
-        aluno = new Aluno("Bruno","111","endereço","07/12/1990");
-        listaTurma.adicionarAlunoNaTurma(aluno, 0);
-        
-        listaTurma.printarTodosOsAlunos();
-               /**
-        
-
-    
         do{
             System.out.println("--------------------------------------------------\n");
             System.out.println("Bem-vindo ao sistema de gerenciamento da escola\n");
@@ -91,7 +76,7 @@ public class JavaApplication29 {
 
     
         entrada.close(); 
-        *  */
+        
     }
     
     

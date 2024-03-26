@@ -23,6 +23,8 @@ public class ListaTurma {
         
         ListaAluno listaAluno = listaTurma.get(numeroTurma).getListaAluno();
         
+        listaAluno.ordenar();
+        
         for(int i = 0; i < listaAluno.tamanho();i++){
                        
             System.out.println(listaAluno.get(i).getNome() + " - " + listaAluno.get(i).calcularIdadeDoAluno());
@@ -45,7 +47,7 @@ public class ListaTurma {
         
             turma = listaTurmaEtapaEnsino.get(i);
                      
-            contador = quantidadeAlunosForaEtapaEnsinoTurma(turma.getListaAluno(),etapaEnsino);
+            contador = contador + quantidadeAlunosForaEtapaEnsinoTurma(turma.getListaAluno(),etapaEnsino);
         
         }
         
@@ -146,6 +148,19 @@ public class ListaTurma {
         listaAlunosEscola.ordenar();
         
         return listaAlunosEscola;
+        
+    }
+    
+    public void printarTurmas(){
+        
+        for(int i = 0; i < listaTurma.size(); i++){
+            
+            System.out.println("--------------------------------");
+            System.out.println("Turma: " + i + "\nEtapa de ensino: " + listaTurma.get(i).getEtapaEnsino() +
+            "\nAno: " + listaTurma.get(i).getAno() + "\nLimite de vagas: " + listaTurma.get(i).getLimiteVagas() +
+                    "\nNumero de matriculados: " + listaTurma.get(i).getNumeroMatriculados());
+            
+        }
         
     }
     
