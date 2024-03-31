@@ -25,6 +25,8 @@ public class ListaTurma {
         
         listaAluno.ordenar();
         
+        System.out.println("--------------------------------------------------\n");
+        
         for(int i = 0; i < listaAluno.tamanho();i++){
                        
             System.out.println(listaAluno.get(i).getNome() + " - " + listaAluno.get(i).calcularIdadeDoAluno());
@@ -75,22 +77,22 @@ public class ListaTurma {
     
     public boolean checarIdadeNaEtapaEnsino(int idade, String etapaEnsino){
         
-        if(etapaEnsino == "infantil" && idade > 6){
+        if(etapaEnsino.contains("infantil") && idade > 6){
             
             return false;
             
         }
-        if(etapaEnsino == "fundamental anos iniciais" && (idade < 6 || idade > 11)){
+        if(etapaEnsino.contains("fundamental anos iniciais") && (idade < 6 || idade > 11)){
             
             return false;
             
         }
-        if(etapaEnsino == "fundamental anos finais" && (idade < 11 || idade > 15)){
+        if(etapaEnsino.contains("fundamental anos finais") && (idade < 11 || idade > 15)){
             
             return false;
             
         }
-        if(etapaEnsino == "médio" && (idade < 15 || idade > 18)){
+        if(etapaEnsino.contains("médio") && (idade < 15 || idade > 18)){
             
             return false;
             
@@ -104,7 +106,7 @@ public class ListaTurma {
         
         for(int i = 0; i < listaTurma.size(); i++){
             
-            if(listaTurma.get(i).getEtapaEnsino() == etapaEnsino){
+            if(listaTurma.get(i).getEtapaEnsino().contains(etapaEnsino)){
                 
                 listaTurmaEtapaEnsino.add(listaTurma.get(i));
                 
@@ -112,6 +114,7 @@ public class ListaTurma {
             
         }
         
+
         return listaTurmaEtapaEnsino;
         
     }
@@ -161,6 +164,19 @@ public class ListaTurma {
                     "\nNumero de matriculados: " + listaTurma.get(i).getNumeroMatriculados());
             
         }
+        
+    }
+    
+    public void printarUltimaTurmaCadastrada(){
+        
+        int codigoDaTurma = listaTurma.size()-1;
+        
+        System.out.println("--------------------------------------------------\n");
+        
+        System.out.println("\nCodigo da turma: " + codigoDaTurma);
+        System.out.println("Etapa Ensino: " + listaTurma.get(listaTurma.size()-1).getEtapaEnsino());
+        System.out.println("Ano: " + listaTurma.get(listaTurma.size()-1).getAno());
+        System.out.println("Limite de vagas: " + listaTurma.get(listaTurma.size()-1).getLimiteVagas());
         
     }
     

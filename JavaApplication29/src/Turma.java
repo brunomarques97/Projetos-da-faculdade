@@ -47,8 +47,28 @@ public class Turma {
         return etapaEnsino;
     }
 
-    public void setEtapaEnsino(String etapaEnsino) {
-        this.etapaEnsino = etapaEnsino;
+    public void setEtapaEnsino(int opcao) {
+        if(opcao == 1){
+            
+            this.etapaEnsino = "infantil";
+            
+        }else if(opcao == 2){
+            
+            this.etapaEnsino = "fundamental anos iniciais";
+            
+        }else if(opcao == 3){
+            
+            this.etapaEnsino = "fundamental anos finais";
+            
+        }else if(opcao == 4){
+            
+            this.etapaEnsino = "médio";
+            
+        }else{
+            
+            System.out.println("Opção invalida");
+            
+        }
     }
 
     public String getAno() {

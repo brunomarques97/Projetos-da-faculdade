@@ -79,7 +79,5 @@ public class ListaAluno {
         
     }
     
-    public void teste(){
-        System.out.println(alunoArray[0].getNome());
-    }
+
 }
