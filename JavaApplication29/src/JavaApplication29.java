@@ -1,13 +1,4 @@
-
-
-
 import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.ArrayList;
 
 import java.util.Scanner;
 
@@ -139,9 +130,6 @@ public class JavaApplication29 {
                     System.out.println("infantil - fundamental anos iniciais - fundamental anos finais - médio");
                     System.out.println(listaTurma.quantidadeAlunosForaDaEtapaEnisno(entrada.nextLine()));
                     
-                    break;
-                    
-                case 5:
                     break;
 
                 default:

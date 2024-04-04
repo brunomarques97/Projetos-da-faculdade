@@ -1,7 +1,3 @@
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Turma {
     private String etapaEnsino;
     private String ano;

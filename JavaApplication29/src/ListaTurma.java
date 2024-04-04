@@ -39,7 +39,7 @@ public class ListaTurma {
         
         List<Turma> listaTurmaEtapaEnsino = criarListaTurmaEtapaEnsino(etapaEnsino);
         
-        ListaAluno listaDeAlunosTurma;
+    
         
         Turma turma;
         

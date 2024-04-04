@@ -10,6 +10,8 @@
 - felipe assunçao
 <br>
 - lia ferreira
+<br>
+- Giovani
 
 ## Lista de tarefas
 
