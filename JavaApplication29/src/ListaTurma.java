@@ -7,9 +7,17 @@ public class ListaTurma {
    
     public static final List<Turma> listaTurma = new ArrayList<>();
     
-    public void adicionarAlunoNaTurma(Aluno aluno, int codigoDaTurma){
+    public void adicionarAlunoNaTurma(Aluno aluno, int codigoDaTurma) throws ParseException{
+        
+        if(codigoDaTurma < listaTurma.size() && codigoDaTurma >= 0){
         
         listaTurma.get(codigoDaTurma).cadastrarAluno(aluno);
+        
+        }else{
+            
+            System.out.println("Essa turma não existe. Aluno não cadastrado");
+            
+        }
         
     }
     

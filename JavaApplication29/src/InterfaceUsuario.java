@@ -3,7 +3,7 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 
-public class JavaApplication29 {
+public class InterfaceUsuario {
 
     public static void main(String[] args) throws ParseException {
         Scanner entrada = new Scanner(System.in);
@@ -52,19 +52,22 @@ public class JavaApplication29 {
                     System.out.println("Digite o codigo da turma que você deseja incluir o aluno");
                     listaTurma.adicionarAlunoNaTurma(aluno, entrada.nextInt());
                         
-                    System.out.println("\nInformações do Aluno:");
-                    System.out.println("Nome: " + aluno.getNome());
-                    System.out.println("CPF: " + aluno.getCPF());
-                    System.out.println("Endereço: " + aluno.getEndereço());
-                    System.out.println("Idade: " + aluno.calcularIdadeDoAluno() + " anos");    
+                    
                                
+                    System.out.println("\nPrecione ENTER para continuar");
+                    entrada.nextLine();
+                    entrada.nextLine();
+                    
                     break;
                 case 2:
                     System.out.println("\nOpção Consultar selecionada.\n");
                     System.out.println("--------------------------------------------------\n");
                     
                     listaTurma.printarTodosOsAlunos();
-    
+                    
+                    System.out.println("\nPrecione ENTER para continuar");
+                    entrada.nextLine();
+                    entrada.nextLine();
 
                     break;
                 case 3:
@@ -106,12 +109,20 @@ public class JavaApplication29 {
                     System.out.println("Turma cadastrada com sucesso");
                     
                     listaTurma.printarUltimaTurmaCadastrada();
+                    
+                    System.out.println("\nPrecione ENTER para continuar");
+                    entrada.nextLine();
+                    entrada.nextLine();
                                
                     break;
                 case 2:
                     System.out.println("Opção Consultar selecionada.\n");
                     
                     listaTurma.printarTurmas();
+                    
+                    System.out.println("\nPrecione ENTER para continuar");
+                    entrada.nextLine();
+                    entrada.nextLine();
 
                     break;
                 case 3:
@@ -119,6 +130,9 @@ public class JavaApplication29 {
                     System.out.println("Digite o codigo da turma");                   
                     listaTurma.printarAlunosDaTurma(entrada.nextInt());
                     
+                    System.out.println("\nPrecione ENTER para continuar");
+                    entrada.nextLine();
+                    entrada.nextLine();
                     
                     break;
                     
@@ -129,6 +143,10 @@ public class JavaApplication29 {
                     System.out.println("Digite a etapa de ensino a ser consultada");
                     System.out.println("infantil - fundamental anos iniciais - fundamental anos finais - médio");
                     System.out.println(listaTurma.quantidadeAlunosForaDaEtapaEnisno(entrada.nextLine()));
+                    
+                    System.out.println("\nPrecione ENTER para continuar");
+                    entrada.nextLine();
+                    entrada.nextLine();
                     
                     break;
 

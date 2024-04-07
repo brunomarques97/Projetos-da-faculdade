@@ -1,3 +1,6 @@
+
+import java.text.ParseException;
+
 public class Turma {
     private String etapaEnsino;
     private String ano;
@@ -7,11 +10,17 @@ public class Turma {
     
     
     //verificar retorno do erro caso não possua vagas na turma
-    public void cadastrarAluno(Aluno novoAluno){
+    public void cadastrarAluno(Aluno novoAluno) throws ParseException{
         
         if(numeroMatriculados < limiteVagas){
-        listaDeAlunosDaTurma.incluirNoFim(novoAluno);
-        numeroMatriculados++;
+            listaDeAlunosDaTurma.incluirNoFim(novoAluno);
+            numeroMatriculados++;
+        
+            System.out.println("\nInformações do Aluno:");
+            System.out.println("Nome: " + novoAluno.getNome());
+            System.out.println("CPF: " + novoAluno.getCPF());
+            System.out.println("Endereço: " + novoAluno.getEndereço());
+            System.out.println("Idade: " + novoAluno.calcularIdadeDoAluno() + " anos");    
         
         }else{
         
