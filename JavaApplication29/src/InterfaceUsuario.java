@@ -40,14 +40,30 @@ public class InterfaceUsuario {
                     System.out.println("Digite seu Aluno: ");
                     aluno.setNome(entrada.nextLine());
 
-                    System.out.println("Digite seu CPF: ");
-                    aluno.setCPF(entrada.nextLine());
+                    System.out.println("Digite seu CPF:");
+                    while (true) {
+                        String cpf = entrada.nextLine();
+                        if (Validacoes.validarCPF(cpf) == true) {
+                            aluno.setCPF(cpf);
+                            break;
+                        }else {
+                            System.out.println("Formato de CPF inválido!");
+                        }
+                    }
 
                     System.out.println("Digite seu Endereço: ");
                     aluno.setEndereço(entrada.nextLine());
 
                     System.out.println("Digite sua Data de Nascimento (dd/MM/yyyy): ");
-                    aluno.setDataNascimento(entrada.nextLine());
+                    while (true) {
+                        String Nascimento = entrada.nextLine();
+                        if (Validacoes.validarDataDeNascimento(Nascimento)) {
+                            aluno.setDataNascimento(Nascimento);
+                            break;
+                        }else{
+                            System.out.println("Formato de data inválido. Use o formato dd/MM/yyyy.");
+                        }
+                    }
                                  
                     System.out.println("Digite o codigo da turma que você deseja incluir o aluno");
                     listaTurma.adicionarAlunoNaTurma(aluno, entrada.nextInt());
