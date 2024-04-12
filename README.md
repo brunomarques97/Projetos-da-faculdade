@@ -14,6 +14,7 @@
 - Giovani
 
 ## Lista de tarefas
+### Parte 1
 
 <br>
 -[X]Conexao dos colaboradores do projeto
@@ -37,7 +38,7 @@
 <br>
 -[x]cadastro de alunos
 <br>
--[ ]cadastro de turma
+-[x]cadastro de turma
 <br>
 -[x]cadastro aluno na turma
 <br>
@@ -49,4 +50,10 @@
 <br>
 -[x]consultar alunos cadastrados na turma
 <br>
--[ ]consultar alunos com idade errada na turma
+-[x]consultar alunos com idade errada na turma
+
+### Parte 1
+
+-[x]Validação do cpf
+<br>
+-[x]Validação da Data de Nascimento

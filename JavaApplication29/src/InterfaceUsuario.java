@@ -47,7 +47,7 @@ public class InterfaceUsuario {
                             aluno.setCPF(cpf);
                             break;
                         }else {
-                            System.out.println("Formato de CPF inválido!");
+                            System.out.println("Formato de CPF inválido! (Insira apenas os numeros)");
                         }
                     }
 
