@@ -1,0 +1,5 @@
+## Validaçao do CPF
+
+Na validação do cpf fiz um ciclo de repetição ate que o input esteja correto, a validação verifica se foi inseridos os 11 digitos do cpf;
+<br>
+Na validação da data fiz tambem um ciclo de repetição com a mesma função, a validação usa localdate e o DateTimeFormatter para verificar se o input esta no formato correto para conseguir calcular a idade.
