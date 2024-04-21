@@ -38,8 +38,19 @@ public class InterfaceUsuario {
                     entrada.nextLine();
 
                     System.out.println("Digite seu Aluno: ");
-                    aluno.setNome(entrada.nextLine());
+                    while (true) {
+                        String nomeAluno = entrada.nextLine();
 
+                        String nomeFormatado = Validacoes.nomeFormatado(nomeAluno);
+                        
+                        if (listaTurma.nomesUnicos(nomeFormatado)) {
+                            aluno.setNome(nomeFormatado);
+                            break;
+                        } else {
+                            System.out.println("Este aluno já foi adicionado. Por favor, insira um aluno diferente.");
+                        }
+                    }
+                    
                     System.out.println("Digite seu CPF:");
                     while (true) {
                         String cpf = entrada.nextLine();

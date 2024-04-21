@@ -1,7 +1,9 @@
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ListaTurma {
    
@@ -187,5 +189,19 @@ public class ListaTurma {
         System.out.println("Limite de vagas: " + listaTurma.get(listaTurma.size()-1).getLimiteVagas());
         
     }
+
+    public boolean nomesUnicos(String nome) {
+        ListaAluno listaDeAlunos = criarListaDeAlunosDaEscola();
+        Set<String> nomesUnicos = new HashSet<>();
     
+        for(int i = 0; i < listaDeAlunos.tamanho(); i++){
+            nomesUnicos.add(listaDeAlunos.get(i).getNome());
+        }
+    
+        if (nomesUnicos.contains(nome)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -2,4 +2,13 @@
 
 Na validação do cpf fiz um ciclo de repetição ate que o input esteja correto, a validação verifica se foi inseridos os 11 digitos do cpf;
 <br>
+
+## Validaçao da data de nascimento
+
 Na validação da data fiz tambem um ciclo de repetição com a mesma função, a validação usa localdate e o DateTimeFormatter para verificar se o input esta no formato correto para conseguir calcular a idade.
+
+## Duplicidade dos alunos
+
+Na duplicidade fiz um ciclo de repetição ate que o input esteja correto, a validação verificar se o nome não esta duplicado;
+<br>
+Primeiro ele transforma todos os nomes do corretamente(deixa eles com todas as letras minusculas e depois transforma todas as inicais maisculas), depois ele faz uma verificaçao de em uma lista com o "contains" para ver se ja existe o nome, se não houver ele continua o codigo e adiciona o nome.
