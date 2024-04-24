@@ -64,4 +64,31 @@ public class Aluno {
         this.dataNascimento = dataNascimento;
     }
     
+    @Override
+    public boolean equals(Object o){
+        
+        if(o == this){
+            
+            return true;
+            
+        }
+        
+        if(!(o instanceof Aluno)){
+            
+            return false;
+            
+        }
+        
+        Aluno aluno = (Aluno) o;
+        
+        if(this.getCPF().equals(aluno.getCPF()) && this.getDataNascimento().equals(aluno.getDataNascimento()) && this.getEndereço().equals(aluno.getEndereço()) && this.getNome().equals(aluno.getNome())){
+            
+            return true;
+            
+        }
+        
+        return false;
+        
+    }
+    
 }

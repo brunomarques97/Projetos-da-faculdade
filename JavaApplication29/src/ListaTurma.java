@@ -190,18 +190,18 @@ public class ListaTurma {
         
     }
 
-    public boolean nomesUnicos(String nome) {
+    public void alunosUnicos(Aluno novoAluno) throws Exception {
         ListaAluno listaDeAlunos = criarListaDeAlunosDaEscola();
-        Set<String> nomesUnicos = new HashSet<>();
-    
-        for(int i = 0; i < listaDeAlunos.tamanho(); i++){
-            nomesUnicos.add(listaDeAlunos.get(i).getNome());
-        }
-    
-        if (nomesUnicos.contains(nome)) {
-            return false;
-        } else {
-            return true;
-        }
+        
+        for(int i = 0; i < listaDeAlunos.tamanho() ; i++){
+            
+            if(novoAluno.equals(listaDeAlunos.get(i))){
+                
+                throw new Exception("Aluno ja cadastrado");
+                
+            }
+                             
+        }                     
+        
     }
 }

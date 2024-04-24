@@ -1,4 +1,5 @@
 import java.text.ParseException;
+import java.util.InputMismatchException;
 
 import java.util.Scanner;
 
@@ -7,10 +8,12 @@ public class InterfaceUsuario {
 
     public static void main(String[] args) throws ParseException {
         Scanner entrada = new Scanner(System.in);
-        int opcao = 0;
+        int opcao = 5;
         ListaTurma listaTurma = new ListaTurma();
                
         do{
+            
+            try{
             System.out.println("--------------------------------------------------\n");
             System.out.println("Bem-vindo ao sistema de gerenciamento da escola\n");
             System.out.println("Escolha uma opção");
@@ -37,21 +40,11 @@ public class InterfaceUsuario {
                  
                     entrada.nextLine();
 
-                    System.out.println("Digite seu Aluno: ");
-                    while (true) {
-                        String nomeAluno = entrada.nextLine();
-
-                        String nomeFormatado = Validacoes.nomeFormatado(nomeAluno);
-                        
-                        if (listaTurma.nomesUnicos(nomeFormatado)) {
-                            aluno.setNome(nomeFormatado);
-                            break;
-                        } else {
-                            System.out.println("Este aluno já foi adicionado. Por favor, insira um aluno diferente.");
-                        }
-                    }
+                    System.out.println("Digite o nome do aluno: ");
+                    aluno.setNome(entrada.nextLine());
                     
-                    System.out.println("Digite seu CPF:");
+                    System.out.println("Digite o CPF do aluno:");
+                    
                     while (true) {
                         String cpf = entrada.nextLine();
                         if (Validacoes.validarCPF(cpf) == true) {
@@ -62,10 +55,11 @@ public class InterfaceUsuario {
                         }
                     }
 
-                    System.out.println("Digite seu Endereço: ");
+                    System.out.println("Digite o endereço do aluno: ");
                     aluno.setEndereço(entrada.nextLine());
 
-                    System.out.println("Digite sua Data de Nascimento (dd/MM/yyyy): ");
+                    System.out.println("Digite a data de nascimento do aluno (dd/MM/yyyy): ");
+                    
                     while (true) {
                         String Nascimento = entrada.nextLine();
                         if (Validacoes.validarDataDeNascimento(Nascimento)) {
@@ -77,8 +71,18 @@ public class InterfaceUsuario {
                     }
                                  
                     System.out.println("Digite o codigo da turma que você deseja incluir o aluno");
+                    
+                    
+                    try{
+                        
+                    listaTurma.alunosUnicos(aluno);
                     listaTurma.adicionarAlunoNaTurma(aluno, entrada.nextInt());
                         
+                    }catch (Exception e){
+                        
+                        System.out.println("Aluno ja castrado anteriormente");
+                        
+                    }
                     
                                
                     System.out.println("\nPrecione ENTER para continuar");
@@ -118,7 +122,7 @@ public class InterfaceUsuario {
                     Turma turma = new Turma();
                     
                     System.out.println("\nOpção Cadastrar selecionada.\n");
-
+                    //erro
                     System.out.println("Digite o codigo da etapa de ensino: ");
                     System.out.println("1-Infantil\n2-Fundamental anos iniciais\n3-Fundamental anos finais\n4-Médio");
                     turma.setEtapaEnsino(entrada.nextInt());
@@ -136,7 +140,7 @@ public class InterfaceUsuario {
                     System.out.println("Turma cadastrada com sucesso");
                     
                     listaTurma.printarUltimaTurmaCadastrada();
-                    
+                                                          
                     System.out.println("\nPrecione ENTER para continuar");
                     entrada.nextLine();
                     entrada.nextLine();
@@ -181,6 +185,16 @@ public class InterfaceUsuario {
                     System.out.println("Opção inválida! Tente novamente.");
             }
                 
+            }
+            
+            }catch(InputMismatchException e){
+                        
+                System.out.println("\nDigite apenas numeros");
+                
+                System.out.println("\nPrecione ENTER para continuar");
+                entrada.nextLine();
+                entrada.nextLine();
+                        
             }
 
             

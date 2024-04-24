@@ -100,4 +100,31 @@ public class Turma {
         this.numeroMatriculados = numeroMatriculados;
     }
     
+    @Override
+    public boolean equals(Object o){
+        
+        if(o == this){
+            
+            return true;
+            
+        }
+        
+        if(!(o instanceof Turma)){
+            
+            return false;
+            
+        }
+        
+        Turma turma = (Turma) o;
+        
+        if(this.getEtapaEnsino() == turma.getEtapaEnsino() && this.getLimiteVagas() == turma.getLimiteVagas() && this.getListaAluno().equals(turma.getListaAluno()) && this.getNumeroMatriculados() == turma.getNumeroMatriculados()){
+            
+            return true;
+            
+        }
+        
+        return false;
+        
+    }
+    
 }
