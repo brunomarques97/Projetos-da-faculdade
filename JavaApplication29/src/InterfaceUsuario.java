@@ -78,9 +78,13 @@ public class InterfaceUsuario {
                     listaTurma.alunosUnicos(aluno);
                     listaTurma.adicionarAlunoNaTurma(aluno, entrada.nextInt());
                         
-                    }catch (Exception e){
+                    }catch (Illegal­Access­Exception e){
                         
                         System.out.println("Aluno ja castrado anteriormente");
+                        
+                    }catch (Exception e){
+                        
+                        System.out.println("Codigo de turma invalido");
                         
                     }
                     

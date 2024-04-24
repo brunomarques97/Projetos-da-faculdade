@@ -186,14 +186,14 @@ public class ListaTurma {
         
     }
 
-    public void alunosUnicos(Aluno novoAluno) throws Exception {
+    public void alunosUnicos(Aluno novoAluno) throws Illegal­Access­Exception {
         ListaAluno listaDeAlunos = criarListaDeAlunosDaEscola();
         
         for(int i = 0; i < listaDeAlunos.tamanho() ; i++){
             
             if(novoAluno.equals(listaDeAlunos.get(i))){
                 
-                throw new Exception("Aluno ja cadastrado");
+                throw new Illegal­Access­Exception("Aluno ja cadastrado");
                 
             }
                              
