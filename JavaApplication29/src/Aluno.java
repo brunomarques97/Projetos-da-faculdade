@@ -65,6 +65,20 @@ public class Aluno {
     }
     
     @Override
+    public String toString() {
+        String idade;
+        try{
+            idade = String.valueOf(this.calcularIdadeDoAluno());
+        } catch (ParseException e){
+            idade = "Data de nascimento inválida";
+        }
+        return "Aluno: " + this.getNome() + "\n"
+                + "CPF: " + this.getCPF() + "\n"
+                + "Idade: " + idade + "\n"
+                + "Endereço: " + this.getEndereço() + "\n";
+    }
+    
+    @Override
     public boolean equals(Object o){
         
         if(o == this){
@@ -81,7 +95,7 @@ public class Aluno {
         
         Aluno aluno = (Aluno) o;
         
-        if(this.getCPF().equals(aluno.getCPF()) && this.getDataNascimento().equals(aluno.getDataNascimento()) && this.getEndereço().equals(aluno.getEndereço()) && this.getNome().equals(aluno.getNome())){
+        if(o.toString().equals(aluno.toString())){
             
             return true;
             

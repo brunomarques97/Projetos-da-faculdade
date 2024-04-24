@@ -177,7 +177,7 @@ public class InterfaceUsuario {
                     
                     System.out.println("\nPrecione ENTER para continuar");
                     entrada.nextLine();
-                    entrada.nextLine();
+                    
                     
                     break;
 

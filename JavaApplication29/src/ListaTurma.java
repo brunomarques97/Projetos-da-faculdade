@@ -169,9 +169,7 @@ public class ListaTurma {
         for(int i = 0; i < listaTurma.size(); i++){
             
             System.out.println("--------------------------------");
-            System.out.println("Turma: " + i + "\nEtapa de ensino: " + listaTurma.get(i).getEtapaEnsino() +
-            "\nAno: " + listaTurma.get(i).getAno() + "\nLimite de vagas: " + listaTurma.get(i).getLimiteVagas() +
-                    "\nNumero de matriculados: " + listaTurma.get(i).getNumeroMatriculados());
+            System.out.println(listaTurma.get(i).toString());
             
         }
         
@@ -184,9 +182,7 @@ public class ListaTurma {
         System.out.println("--------------------------------------------------\n");
         
         System.out.println("\nCodigo da turma: " + codigoDaTurma);
-        System.out.println("Etapa Ensino: " + listaTurma.get(listaTurma.size()-1).getEtapaEnsino());
-        System.out.println("Ano: " + listaTurma.get(listaTurma.size()-1).getAno());
-        System.out.println("Limite de vagas: " + listaTurma.get(listaTurma.size()-1).getLimiteVagas());
+        System.out.println(listaTurma.get(codigoDaTurma).toString());
         
     }
 

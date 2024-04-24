@@ -17,10 +17,8 @@ public class Turma {
             numeroMatriculados++;
         
             System.out.println("\nInformações do Aluno:");
-            System.out.println("Nome: " + novoAluno.getNome());
-            System.out.println("CPF: " + novoAluno.getCPF());
-            System.out.println("Endereço: " + novoAluno.getEndereço());
-            System.out.println("Idade: " + novoAluno.calcularIdadeDoAluno() + " anos");    
+            System.out.println(novoAluno.toString());
+                
         
         }else{
         
@@ -101,6 +99,15 @@ public class Turma {
     }
     
     @Override
+    public String toString() {
+        
+        return "Etapa ensino: " + this.getEtapaEnsino() + "\n"
+                + "Ano: " + this.getAno() + "\n"
+                + "Limite de vagas: " + this.getLimiteVagas() + "\n"
+                + "Numero matriculados: " + this.getNumeroMatriculados() + "\n";
+    }
+    
+    @Override
     public boolean equals(Object o){
         
         if(o == this){
@@ -117,7 +124,7 @@ public class Turma {
         
         Turma turma = (Turma) o;
         
-        if(this.getEtapaEnsino() == turma.getEtapaEnsino() && this.getLimiteVagas() == turma.getLimiteVagas() && this.getListaAluno().equals(turma.getListaAluno()) && this.getNumeroMatriculados() == turma.getNumeroMatriculados()){
+        if(o.toString().equals(turma.toString())){
             
             return true;
             
