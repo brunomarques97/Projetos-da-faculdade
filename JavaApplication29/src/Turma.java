@@ -124,7 +124,7 @@ public class Turma {
         
         Turma turma = (Turma) o;
         
-        if(o.toString().equals(turma.toString())){
+        if(o.toString().equals(this.toString())){
             
             return true;
             

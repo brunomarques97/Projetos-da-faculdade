@@ -74,7 +74,7 @@ public class Aluno {
         }
         return "Aluno: " + this.getNome() + "\n"
                 + "CPF: " + this.getCPF() + "\n"
-                + "Idade: " + idade + "\n"
+                + "Idade: " + this.getDataNascimento() + "\n"
                 + "Endereço: " + this.getEndereço() + "\n";
     }
     
@@ -95,7 +95,7 @@ public class Aluno {
         
         Aluno aluno = (Aluno) o;
         
-        if(o.toString().equals(aluno.toString())){
+        if(o.toString().equals(this.toString())){
             
             return true;
             
