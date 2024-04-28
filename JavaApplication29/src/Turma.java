@@ -50,7 +50,7 @@ public class Turma {
         return etapaEnsino;
     }
 
-    public void setEtapaEnsino(int opcao) {
+    public void setEtapaEnsino(int opcao) throws Exception {
         if(opcao == 1){
             
             this.etapaEnsino = "infantil";
@@ -69,7 +69,7 @@ public class Turma {
             
         }else{
             
-            System.out.println("Opção invalida");
+            throw new Exception("Codigo invalido");
             
         }
     }

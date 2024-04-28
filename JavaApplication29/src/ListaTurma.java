@@ -191,7 +191,7 @@ public class ListaTurma {
         
         for(int i = 0; i < listaDeAlunos.tamanho() ; i++){
             
-            if(novoAluno.equals(listaDeAlunos.get(i))){
+            if(novoAluno.equals(listaDeAlunos.get(i)) || novoAluno.getCPF().equals(listaDeAlunos.get(i))){
                 
                 throw new Illegal­Access­Exception("Aluno ja cadastrado");
                 

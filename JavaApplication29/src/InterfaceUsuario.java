@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class InterfaceUsuario {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, Exception {
         Scanner entrada = new Scanner(System.in);
         int opcao = 5;
         ListaTurma listaTurma = new ListaTurma();
@@ -126,11 +126,24 @@ public class InterfaceUsuario {
                     Turma turma = new Turma();
                     
                     System.out.println("\nOpção Cadastrar selecionada.\n");
-                    //erro
+                    
+                    try{
                     System.out.println("Digite o codigo da etapa de ensino: ");
                     System.out.println("1-Infantil\n2-Fundamental anos iniciais\n3-Fundamental anos finais\n4-Médio");
                     turma.setEtapaEnsino(entrada.nextInt());
                     
+                    }catch(Exception e){
+                        
+                        System.out.println("Opção invalida");
+                        
+                        System.out.println("\nPrecione ENTER para continuar");
+                        entrada.nextLine();
+                        entrada.nextLine();
+                               
+                    break;
+                        
+                    }
+                                                          
                     entrada.nextLine();
                     
                     System.out.println("Digite o ano da turma");
@@ -144,7 +157,7 @@ public class InterfaceUsuario {
                     System.out.println("Turma cadastrada com sucesso");
                     
                     listaTurma.printarUltimaTurmaCadastrada();
-                                                          
+                                                        
                     System.out.println("\nPrecione ENTER para continuar");
                     entrada.nextLine();
                     entrada.nextLine();
@@ -161,9 +174,14 @@ public class InterfaceUsuario {
 
                     break;
                 case 3:
-                    
+                    try{
                     System.out.println("Digite o codigo da turma");                   
                     listaTurma.printarAlunosDaTurma(entrada.nextInt());
+                    }catch (IndexOutOfBoundsException e){
+                        
+                        System.out.println("Codigo da turma invalido");
+                        
+                    }
                     
                     System.out.println("\nPrecione ENTER para continuar");
                     entrada.nextLine();
