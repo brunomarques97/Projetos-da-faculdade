@@ -5,14 +5,17 @@ ver a lista de itens que retorna do bd
 passo 1:
 
 click com o botão direito no navegador
+<br>
 ![alt text](<./img/Captura de tela 2024-08-06 095056.png>)
 
 passo 2:
 click em console
+<br>
 ![alt text](<./img/Captura de tela 2024-08-06 095151.png>)
 
 passo 3:
 acesse a lista dos dados para visualizar
+<br>
 ![alt text](<./img/Captura de tela 2024-08-06 095429.png>)
 
 ## Lista de tarefas
