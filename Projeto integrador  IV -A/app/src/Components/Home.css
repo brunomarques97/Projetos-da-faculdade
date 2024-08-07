@@ -12,8 +12,9 @@ section{
     align-items: center;
     text-align: center;
     justify-content: space-between;
+    cursor: pointer;
 }
-.card p{
+.card .short-descricao{
     text-align: justify;
 }
 @media (max-width: 991px) {
@@ -30,19 +31,21 @@ section{
         padding-bottom: 50px;
     }
 }
-img{
+.capa{
     width: 100%;
     height: 100px;
 }
-p{
+.short-descricao{
     margin-top: 20px;
     height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-input{
+.search{
     border-radius: 5px;
 }
-button{
-    width: 10rem;
+.titulo{
+    margin-top: 25px !important;
+    text-align: center;
+    color: rgb(240, 242, 244) !important;
 }

@@ -7,7 +7,7 @@ import Pagination from 'react-bootstrap/Pagination';
 import data from '../data/exemplo.json';
 
 
-const Home=()=>{
+const Home=({jogo})=>{
  
 
   const [activePage, setActivePage] = useState(1);
@@ -48,9 +48,11 @@ const Home=()=>{
   
     return (
       <section className='main'>
+        <h1>Games</h1>
         <section className='container banner'>
             <div>
               <input
+                className='search'
                 type="text"
                 placeholder="Search..."
                 value={searchTerm}
@@ -79,11 +81,11 @@ const Home=()=>{
                 
                     <div 
                       className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '
-                    
+                      onClick={jogo}
                     >
-                      <img src={item.header_image} alt='imagem'/>
+                      <img src={item.header_image} alt='imagem' className='capa'/>
                       <h2 className='card-title'>{item.name}</h2>
-                      <p>{item.about_the_game}</p>
+                      <p className='short-descricao'>{item.about_the_game}</p>
                     </div>        
               ))}
           </section>
