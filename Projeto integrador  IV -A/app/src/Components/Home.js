@@ -4,14 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState,useEffect } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-import data from '../data/exemplo.json';
+import data from '../data/games.json';
 
 
 const Home=({jogo})=>{
  
 
   const [activePage, setActivePage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 40;
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const indexOfLastItem = activePage * itemsPerPage;
