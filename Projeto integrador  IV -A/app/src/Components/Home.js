@@ -11,7 +11,7 @@ const Home=({jogo})=>{
  
 
   const [activePage, setActivePage] = useState(1);
-  const itemsPerPage = 40;
+  const itemsPerPage = 200;
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const indexOfLastItem = activePage * itemsPerPage;
@@ -83,9 +83,9 @@ const Home=({jogo})=>{
                       className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '
                       onClick={jogo}
                     >
-                      <img src={item.header_image} alt='imagem' className='capa'/>
+                      <img src={item.headerImage} alt='imagem' className='capa'/>
                       <h2 className='card-title'>{item.name}</h2>
-                      <p className='short-descricao'>{item.about_the_game}</p>
+                      <p className='short-descricao'>{item.shortDesc}</p>
                     </div>        
               ))}
           </section>
