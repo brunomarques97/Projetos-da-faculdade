@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url('./img/fundo-de-grade-de-neon_53876-91657.avif');
+  color: white !important;
 }
 
 code {

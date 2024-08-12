@@ -1,0 +1,12 @@
+.informacoes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.informacoes div{
+    border: 2px white solid;
+    width: 40vw;
+}
+.informacoes h2{
+    text-align: center;
+}

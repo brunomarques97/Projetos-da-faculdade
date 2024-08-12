@@ -4,14 +4,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState,useEffect } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
+import { Link } from 'react-router-dom';
+
 import data from '../data/games.json';
 
 
-const Home=({jogo})=>{
+const Home=()=>{
  
 
   const [activePage, setActivePage] = useState(1);
-  const itemsPerPage = 200;
+  const itemsPerPage = 100;
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const indexOfLastItem = activePage * itemsPerPage;
@@ -48,7 +50,7 @@ const Home=({jogo})=>{
   
     return (
       <section className='main'>
-        <h1>Games</h1>
+        <h1 className='titulo'>Games</h1>
         <section className='container banner'>
             <div>
               <input
@@ -78,15 +80,19 @@ const Home=({jogo})=>{
         <section className='container'>
           <section className='row'>
               {currentItems.map((item) => (
-                
-                    <div 
-                      className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '
-                      onClick={jogo}
-                    >
+
+                <div className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '>
+
+                  <Link to={`/item/${item.appID}`} >
+              
+                    <div key={item.appID}>
                       <img src={item.headerImage} alt='imagem' className='capa'/>
                       <h2 className='card-title'>{item.name}</h2>
                       <p className='short-descricao'>{item.shortDesc}</p>
-                    </div>        
+                    </div>
+
+                  </Link>
+                </div>
               ))}
           </section>
         </section>
