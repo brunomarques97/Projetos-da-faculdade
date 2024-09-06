@@ -27,14 +27,9 @@ const Item=()=>{
     setmostrarMac(item.supportMac);
   }, [item]);
 
- 
-    
-  console.log(item)
-
-
     return (
         <section className="container">
-          <button onClick={() => navigate(-1)}>Voltar</button>
+          <button onClick={() => navigate(-1)} className='botao'>Voltar</button>
           <section >
             <h1 className='titulo'>{item.name}</h1>
 
@@ -84,22 +79,22 @@ const Item=()=>{
                     <p>{item.languages}</p>
                   </div>
                 </div>
-              </div>
-              <div className='col-12'>
-                  <p>{item.longDesc}</p>
-              </div>
-              <div className='col-12'>
-                  <h2>Comments</h2>
-                  <input></input>
-              </div>
-              
-            </section>          
+              </div>          
+            </section> 
+
+
           </section>
 
+          <section className="container">
+          <div className='col-12'>
+                  <p>{item.longDesc}</p>
+              </div>  
+          </section>
             
           </section>
             
         </section>
+
 
     );
   }
