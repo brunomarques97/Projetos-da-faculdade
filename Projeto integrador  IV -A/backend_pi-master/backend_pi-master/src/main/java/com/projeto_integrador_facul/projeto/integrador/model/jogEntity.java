@@ -20,10 +20,10 @@ public class jogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Integer AppID;
+    private Integer appID;
     private String name;
     private String releaseDate;
-    private int required_age;
+    private Integer required_age;
         
     @Column(name = "longDesc", columnDefinition = "INTEGER")
     private String longDesc;

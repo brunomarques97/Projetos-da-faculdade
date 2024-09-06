@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 100px;
+}
+.container .buttons  {
+    margin: 100px;
+  }
+  
+.container .buttons a {
+    margin: 100px;
+  }
+
+  
+.button {
+    padding: 20px 30px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+  
+  .button:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px); 
+  }

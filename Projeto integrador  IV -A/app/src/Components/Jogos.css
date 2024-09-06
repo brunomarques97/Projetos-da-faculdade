@@ -1,6 +1,7 @@
 .banner{
     display: flex;
     justify-content: space-evenly;
+    flex-direction: row;
     margin: 50px 0;
 }
 section{
@@ -18,20 +19,6 @@ section{
 a{
     color: black !important;
     text-decoration: none !important;
-}
-@media (max-width: 991px) {
-    .banner{
-        display: block;
-    }
-    .banner div{
-        margin: 20px 0;
-    }
-  }
-@media (max-width: 767px) {
-    .main {
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
 }
 .capa{
     width: 100%;
@@ -51,7 +38,7 @@ a{
     text-align: center;
     font-size: 20px;
 }
-button{
+.botao{
     background-color: red;
     color: white;
     padding: 15px 32px;

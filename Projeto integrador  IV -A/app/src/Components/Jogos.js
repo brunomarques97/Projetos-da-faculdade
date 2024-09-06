@@ -69,7 +69,11 @@ const Jogos=()=>{
     return (
       <section className='main'>
         <h1 className='titulo'>Games</h1>
-        <button>X</button>
+        
+        <Link to={`/`}>
+          <button className='botao'>X</button>
+        </Link>
+       
         <section className='container banner'>
             <div>
               <input
