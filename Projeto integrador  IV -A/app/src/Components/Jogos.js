@@ -19,7 +19,9 @@ const Jogos=()=>{
 
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   const [currentItems, setCurrentItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('Todos');
 
   const isFirstPage = activePage === 1;
   const isLastPage = activePage === Pages;
@@ -28,31 +30,46 @@ const Jogos=()=>{
 
   useEffect(()=> {
 
-    const filtro = data.filter((item) =>
+    const filtroNome = data.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const indexOfLastItem = activePage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    setCurrentItems(filtro.slice(indexOfFirstItem,indexOfLastItem));
+    setCurrentItems(filtroNome.slice(indexOfFirstItem,indexOfLastItem));
 
-    setPages(Math.ceil(filtro.length / itemsPerPage));
+    setPages(Math.ceil(filtroNome.length / itemsPerPage));
 
-  }, [searchTerm,activePage,indexOfFirstItem]);
+    const filtered = filtroNome.filter(item => {
+      if (selectedCategory === 'Todos') {
+        return true;
+      }
+      return item.genres === selectedCategory;
+    });
 
+    setCurrentItems(filtered.slice(indexOfFirstItem,indexOfLastItem));
+
+    setPages(Math.ceil(filtered.length / itemsPerPage));
+
+
+  }, [searchTerm,activePage,indexOfFirstItem,selectedCategory]);
   
+
   const handleCategoryChange = (event) => {
      
-    console.log(event.target.value);
+    setSelectedCategory(event.target.value);
 
   };
   
   const paginate = (pageNumber) => setActivePage(pageNumber); 
+   
+  
   
     return (
       <section className='main'>
         <h1 className='titulo'>Games</h1>
+        <button>X</button>
         <section className='container banner'>
             <div>
               <input
@@ -68,12 +85,34 @@ const Jogos=()=>{
                     <select
                       id="categorySelect"
                       className="form-select"
+                      value={selectedCategory}
                       onChange={handleCategoryChange}
                     >
-                      <option value="">Todas as categorias</option>
-                      <option value="Categoria A">Categoria A</option>
-                      <option value="Categoria B">Categoria B</option>
-                      <option value="Categoria C">Categoria C</option>
+                      <option value="Todos">Todas as categorias</option>
+                      <option value="Action">Action</option>
+                      <option value="Adventure">Adventure</option>
+                      <option value="Animation & Modeling">Animation & Modeling</option>
+                      <option value="Audio Production">Audio Production</option>
+                      <option value="Casual">Casual</option>
+                      <option value="Design & Illustration">Design & Illustration</option>
+                      <option value="Early Access">Early Access</option>
+                      <option value="Education">Education</option>
+                      <option value="Free to Play">Free to Play</option>
+                      <option value="Game Development">Game Development</option>
+                      <option value="Gore">Gore</option>
+                      <option value="Indie">Indie</option>
+                      <option value="Massively Multiplayer">Massively Multiplayer</option>
+                      <option value="Photo Editing">Photo Editing</option>
+                      <option value="Racing">Racing</option>
+                      <option value="RPG">RPG</option>
+                      <option value="Sexual Content">Sexual Content</option>
+                      <option value="Simulation">Simulation</option>
+                      <option value="Software Training">Software Training</option>
+                      <option value="Sports">Sports</option>
+                      <option value="Strategy">Strategy</option>
+                      <option value="Utilities">Utilities</option>
+                      <option value="Video Production">Video Production</option>
+                      <option value="Violent">Violent</option>
                     </select>
                 </div> 
               </div>    
