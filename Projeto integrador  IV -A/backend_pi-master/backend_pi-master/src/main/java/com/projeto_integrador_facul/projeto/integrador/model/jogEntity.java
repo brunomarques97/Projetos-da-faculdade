@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+@SuppressWarnings("unused")
 @Data
 
 @Entity
@@ -24,10 +25,7 @@ public class jogEntity {
     private String name;
     private String releaseDate;
     private Integer required_age;
-        
-    @Column(name = "longDesc", columnDefinition = "INTEGER")
     private String longDesc;
-    
     private String shortDesc;
     private String languages;
     private String fullAudioLanguages;
