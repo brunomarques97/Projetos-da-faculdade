@@ -26,3 +26,6 @@ section{
     font-size: 16px;
     border-radius: 4px;
     }
+.linha{
+    display: flex;
+}

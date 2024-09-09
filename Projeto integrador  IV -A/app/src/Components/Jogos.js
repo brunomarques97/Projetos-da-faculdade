@@ -5,13 +5,12 @@ import React, { useState,useEffect } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
 import { Link } from 'react-router-dom';
-
-import data from '../data/games.json';
-
+import { useLocation } from "react-router-dom";
 
 const Jogos=()=>{
+  const location = useLocation();
+  const data = location.state?.data || "No data provided"; 
  
-
   const [activePage, setActivePage] = useState(1);
   const [Pages,setPages] = useState(1);
   const itemsPerPage = 20;
@@ -29,7 +28,6 @@ const Jogos=()=>{
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(()=> {
-
     const filtroNome = data.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -53,7 +51,7 @@ const Jogos=()=>{
     setPages(Math.ceil(filtered.length / itemsPerPage));
 
 
-  }, [searchTerm,activePage,indexOfFirstItem,selectedCategory]);
+  }, [searchTerm,activePage,indexOfFirstItem,selectedCategory,data]);
   
 
   const handleCategoryChange = (event) => {
@@ -64,9 +62,7 @@ const Jogos=()=>{
   
   const paginate = (pageNumber) => setActivePage(pageNumber); 
    
-  
-  
-    return (
+     return (
       <section className='main'>
         <h1 className='titulo'>Games</h1>
         
@@ -128,7 +124,7 @@ const Jogos=()=>{
 
                 <div className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '>
 
-                  <Link to={`/item/${item.appID}`} >
+                  <Link to={`/item/${item.appID}`} state={{ data }} >
               
                     <div key={item.appID} >
                       <img src={item.headerImage} alt='imagem' className='capa'/>

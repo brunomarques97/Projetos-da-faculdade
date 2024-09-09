@@ -1,12 +1,14 @@
 import './Item.css';
 
 import { useParams, useNavigate  } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import { useState,useEffect } from 'react';
 
-import data from '../data/games.json'
-
 const Item=()=>{
+  const location = useLocation();
+  const data = location.state?.data || "No data provided"; 
+
   const { id } = useParams();
   const navigate = useNavigate();
   const item = data.find((item) => item.appID === parseInt(id));
@@ -27,6 +29,8 @@ const Item=()=>{
     setmostrarMac(item.supportMac);
   }, [item]);
 
+  console.log(item)
+
     return (
         <section className="container">
           <button onClick={() => navigate(-1)} className='botao'>Voltar</button>
@@ -46,7 +50,6 @@ const Item=()=>{
                         controls
                         autoPlay
                         muted
-                        onEnded={true}
                       />
                     </Carousel.Item>
 
@@ -68,15 +71,27 @@ const Item=()=>{
                   <div>
                     <h2>game information</h2>
                   </div>
-                  <div>
-                    <h6>Supported Platforms</h6>
-                    {mostrarWindows && <p>Windows</p>}
-                    {mostrarLinux && <p>Linux</p>}
-                    {mostrarMac && <p>Mac</p>}
+                  <div className='linha' >
+                    <h6>Supported Platforms: </h6>
+                    {mostrarWindows && <p> Windows</p>}
+                    {mostrarLinux && <p>, Linux</p>}
+                    {mostrarMac && <p>, Mac</p>}
+                  </div>
+                  <div  >
+                    <h6>Categories: </h6>
+                    <p>{item.categories}</p>
                   </div>
                   <div>
-                    <h6>Supported languages</h6>
+                    <h6>Supported languages:</h6>
                     <p>{item.languages}</p>
+                  </div>
+                  <div className='linha'>
+                    <h6>Developers: </h6>
+                    <p>{item.developers}</p>
+                  </div>
+                  <div className='linha'>
+                    <h6>Age: </h6>
+                    <p>{item.required_age}</p>
                   </div>
                 </div>
               </div>          
