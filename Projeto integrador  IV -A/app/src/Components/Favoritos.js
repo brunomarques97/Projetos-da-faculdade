@@ -7,9 +7,9 @@ import Pagination from 'react-bootstrap/Pagination';
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
-const Jogos=()=>{
+const Favoritos=()=>{
   const location = useLocation();
-  const data = location.state?.games || "No data provided"; 
+  const data = location.state?.favorites || "No data provided"; 
  
   const [activePage, setActivePage] = useState(1);
   const [Pages,setPages] = useState(1);
@@ -64,7 +64,7 @@ const Jogos=()=>{
    
      return (
       <section className='main'>
-        <h1 className='titulo'>Games</h1>
+        <h1 className='titulo'>Favoritos</h1>
         
         <Link to={`/`}>
           <button className='botao'>X</button>
@@ -188,4 +188,4 @@ const Jogos=()=>{
     );
   }
   
-  export default Jogos;
+  export default Favoritos;

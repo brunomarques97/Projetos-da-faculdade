@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
 import Jogos from './Components/Jogos';
 import Item from './Components/Item';
+import Favoritos from './Components/Favoritos';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<Jogos />} />
+        <Route path="/favorites" element={<Favoritos />} />
         <Route path="/item/:id" element={<Item />} />
       </Routes>
     </Router>

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 
 const Home=()=>{  
-    const [data, setData] = useState(null);
+  const [games, setGames] = useState(null);
+  const [favorites, setfavorites] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,7 +19,25 @@ const Home=()=>{
         return response.json();
       })
       .then((data) => {
-        setData(data);
+        setGames(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/favoritos/listar")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setfavorites(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -36,11 +55,11 @@ const Home=()=>{
             
             <section className="buttons">
 
-                <Link to={`/games`} state={{ data }}>
+                <Link to={`/games`} state={{ games }}>
                     <button className="button">Games</button>
                 </Link>
 
-                <Link to={`/games`}>
+                <Link to={`/favorites`} state={{ favorites }}>
                     <button className="button">favorites</button>
                 </Link>
                 
