@@ -30,9 +30,6 @@ public class jogoController {
     public ResponseEntity<List> getAllJogos(){
         
         List<jogEntity> jogos = jogoService.listarTodosJogos();
-        System.out.println("-------------------------------");
-        System.out.println(jogos.get(0).getLongDesc());
-        System.out.println("-------------------------------");
         
         return new ResponseEntity<>(jogos, HttpStatus.OK);
         

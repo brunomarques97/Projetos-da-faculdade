@@ -1,6 +1,5 @@
 package com.projeto_integrador_facul.projeto.integrador.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,14 +11,12 @@ import lombok.Data;
 
 @Entity
 
-@Table(name="game")
-public class jogEntity {
-    
-
+@Table(name="favoritos")
+public class favoritosEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    
     private Integer AppID;
     private String name;
     private String releaseDate;
@@ -39,6 +36,4 @@ public class jogEntity {
     private String screenshots;
     private String movies;
     private String tags;
-    
 }
-
