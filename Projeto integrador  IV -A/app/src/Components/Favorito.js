@@ -5,9 +5,10 @@ import { useLocation } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import { useState,useEffect } from 'react';
 
-const Item=()=>{
+
+const Favorito=()=>{
   const location = useLocation();
-  const data = location.state?.data || "No data provided"; 
+  const data = location.state?.data || "No data provided";
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,8 +29,6 @@ const Item=()=>{
     setmostrarLinux(item.supportLinux);
     setmostrarMac(item.supportMac);
   }, [item]);
-
-  console.log(item)
 
     return (
         <section className="container">
@@ -101,7 +100,7 @@ const Item=()=>{
           </section>
 
           <section className="container">
-          <div className='col-12'>
+              <div className='col-12'>
                   <p>{item.longDesc}</p>
               </div>  
           </section>
@@ -114,4 +113,4 @@ const Item=()=>{
     );
   }
   
-  export default Item;
+  export default Favorito;

@@ -4,11 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 
+import game from '../data/games.json'
+
 const Home=()=>{  
   const [games, setGames] = useState(null);
   const [favorites, setfavorites] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:8080/jogo/listar")
@@ -22,8 +24,8 @@ const Home=()=>{
         setGames(data);
         setLoading(false);
       })
-      .catch((error) => {
-        setError(error);
+      .catch(() => {
+        setGames(game);
         setLoading(false);
       });
   }, []);
@@ -40,14 +42,13 @@ const Home=()=>{
         setfavorites(data);
         setLoading(false);
       })
-      .catch((error) => {
-        setError(error);
+      .catch(() => {
+        setfavorites(game);
         setLoading(false);
       });
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
     return (
         <section className="container">
@@ -59,7 +60,7 @@ const Home=()=>{
                     <button className="button">Games</button>
                 </Link>
 
-                <Link to={`/favorites`} state={{ favorites }}>
+                <Link to={`/favorites`} state={{ favorites}}>
                     <button className="button">favorites</button>
                 </Link>
                 

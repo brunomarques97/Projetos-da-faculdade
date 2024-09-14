@@ -64,7 +64,7 @@ const Favoritos=()=>{
    
      return (
       <section className='main'>
-        <h1 className='titulo'>Favoritos</h1>
+        <h1 className='titulo'>Favorites</h1>
         
         <Link to={`/`}>
           <button className='botao'>X</button>
@@ -124,7 +124,7 @@ const Favoritos=()=>{
 
                 <div className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '>
 
-                  <Link to={`/item/${item.appID}`} state={{ data }} >
+                  <Link to={`/favorites/item/${item.appID}`} state={{ data }}>
               
                     <div key={item.appID} >
                       <img src={item.headerImage} alt='imagem' className='capa'/>

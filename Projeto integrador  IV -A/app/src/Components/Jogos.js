@@ -123,8 +123,8 @@ const Jogos=()=>{
               {currentItems.map((item) => (
 
                 <div className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '>
-
-                  <Link to={`/item/${item.appID}`} state={{ data }} >
+              
+                  <Link to={`/games/item/${item.appID}`} state={{ data }} >
               
                     <div key={item.appID} >
                       <img src={item.headerImage} alt='imagem' className='capa'/>
