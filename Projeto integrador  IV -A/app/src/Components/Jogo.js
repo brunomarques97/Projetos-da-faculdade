@@ -40,7 +40,7 @@ const Jogo=()=>{
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Favorito adicionado:', data); 
+      alert('Favorito adicionado');
     })
     .catch(error => {
       console.error('Erro ao adicionar favorito:', error);
