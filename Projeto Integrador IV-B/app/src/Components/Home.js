@@ -18,6 +18,7 @@ const Home=()=>{
   const isFirstPage = activePage === 1;
   const isLastPage = activePage === Pages;
   const [searchTerm, setSearchTerm] = useState('');
+  
   useEffect(()=> {
     const filtroNome = data.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
