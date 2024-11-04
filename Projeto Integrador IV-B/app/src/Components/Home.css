@@ -15,6 +15,7 @@ section{
     text-align: center;
     justify-content: space-between;
     cursor: pointer;
+    border: none;
 }
 a{
     color: black !important;

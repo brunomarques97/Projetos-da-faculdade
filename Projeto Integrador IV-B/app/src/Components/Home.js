@@ -51,7 +51,9 @@ const Home=()=>{
                     <div >
                       <img src={item.photo} alt='imagem' className='capa'/>
                       <h2 className='card-title'>{item.name}</h2>
-                      <p className='short-descricao'>{item.description}</p>
+                      <p className='short-descricao'>
+                       Cleveland
+                      </p>
                     </div>
                 </div>
               ))}
