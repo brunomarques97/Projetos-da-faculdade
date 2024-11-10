@@ -3,6 +3,7 @@ import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState,useEffect } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
+import { Link } from 'react-router-dom';
 
 
 import data from '../data/pets.json'
@@ -11,50 +12,60 @@ const Home=()=>{
   const [activePage, setActivePage] = useState(1);
   const [Pages,setPages] = useState(1);
   const itemsPerPage = 20;
+
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   const [currentItems, setCurrentItems] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
+
   const isFirstPage = activePage === 1;
   const isLastPage = activePage === Pages;
+
   const [searchTerm, setSearchTerm] = useState('');
   
   useEffect(()=> {
-    const filtroNome = data.filter((item) =>
+    const filtroCidade = data.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     const indexOfLastItem = activePage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    setCurrentItems(filtroNome.slice(indexOfFirstItem,indexOfLastItem));
-    setPages(Math.ceil(filtroNome.length / itemsPerPage));
-    const filtered = filtroNome.filter(item => {
-      if (selectedCategory === 'Todos') {
-        return true;
-      }
-      return item.genres === selectedCategory;
-    });
-    setCurrentItems(filtered.slice(indexOfFirstItem,indexOfLastItem));
-    setPages(Math.ceil(filtered.length / itemsPerPage));
-  }, [searchTerm,activePage,indexOfFirstItem,selectedCategory,data]);
+
+    setCurrentItems(filtroCidade.slice(indexOfFirstItem,indexOfLastItem));
+    setPages(Math.ceil(filtroCidade.length / itemsPerPage));
+  
+  }, [searchTerm,activePage,indexOfFirstItem,data]);
 
   
   const paginate = (pageNumber) => setActivePage(pageNumber); 
-  console.log(currentItems[0])
+
   return (
-    <section className='main'>
-        
-        <section className='container'>
+    <section className='main' >
+       <section className='container banner'>
+            <div>
+              <input
+                className='search'
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+              </div>    
+          </section>
+      <section className='container'>
           <section className='row'>
               {currentItems.map((item) => (
                 <div className='card col-12 col-lg-2 col-md-2 col-sm-4 mb-1 '>
-    
+                  
+                  <Link to={`/Pet/${item.id}`} state={{ data }} >
                     <div >
-                      <img src={item.photo} alt='imagem' className='capa'/>
+                      <img src={item.photo} alt='imagem' className='capa' style={{ width: '10em', height: '10em' }}/>
                       <h2 className='card-title'>{item.name}</h2>
                       <p className='short-descricao'>
-                       Cleveland
+                       {item.cidade}
                       </p>
                     </div>
+                  </Link>
                 </div>
               ))}
           </section>
@@ -101,8 +112,8 @@ const Home=()=>{
                   Next
                 </Pagination.Next>
             </Pagination>
-          </section>
-      </section>
+          </section> 
+    </section>
   );
 }
   
