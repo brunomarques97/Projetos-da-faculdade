@@ -23,9 +23,9 @@ const Pet=()=>{
       <section className='container'>
         <section className='row'>
 
-              <div className='col-6'>
+              <div className='col-8 d-flex'>
                   <img src={item.photo} alt='photo'/>
-                  <section>
+                  <section className='m-3'>
                     <h1 className='titulo'>{item.name}</h1>
                     <p>{item.Raca_primaria} - {item.cidade}</p>
                   </section>
@@ -38,12 +38,12 @@ const Pet=()=>{
         <section className='row'>
 
           <div className='col-6'>
-              <h3>Tamanho do animal:</h3>
+              <h3>Animal size:</h3>
               <p>{item.size}</p>
           </div>
 
           <div className='col-6'>
-              <h3>Idade do animal:</h3>
+              <h3>Age of animal:</h3>
               <p>{item.age}</p>
           </div>
 
@@ -54,12 +54,12 @@ const Pet=()=>{
         <section className='row'>
 
           <div className='col-6'>
-              <h3>Tamanho do pelo:</h3>
-              <p>nao tem</p>
+              <h3>Hair size:</h3>
+              <p>{item.coat}</p>
           </div>
 
           <div className='col-6'>
-              <h3>Genero do animal:</h3>
+              <h3>Animal genus:</h3>
               <p>{item.gender}</p>
           </div>
 
@@ -70,19 +70,19 @@ const Pet=()=>{
         <section className='row'>
 
           <div className='col-6'>
-              <h3>Contato:</h3>
+              <h3>Contact:</h3>
               <div>
                 <h6>E-mail:</h6>
                 <p>{item.email}</p>
               </div>
               <div>
-                <h6>Numero:</h6>
-                <p>{item.telefone ? item.telefone : 'Telefone não informado'}</p>
+                <h6>Number:</h6>
+                <p>{item.telefone ? item.telefone : 'Telephone number not provided'}</p>
               </div>
           </div>
 
           <div className='col-6'>
-              <h3>Tipo de animal:</h3>
+              <h3>Type of animal:</h3>
               <p>{item.type}</p>
           </div>
 
