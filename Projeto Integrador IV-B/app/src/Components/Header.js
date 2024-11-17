@@ -5,7 +5,7 @@ import img from "../img/logo.jpg"
 
 function Header() {
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar style={{backgroundColor:'gray'}}>
       <Container>
         <Navbar.Brand href="/">
           <img src={img} alt="logo" style={{ width: '50px', height: '50px' }}/>

@@ -1,0 +1,8 @@
+section{
+    margin: 50px;
+}
+
+section p{
+    margin: 0px 50px;
+    text-align: start;
+}
