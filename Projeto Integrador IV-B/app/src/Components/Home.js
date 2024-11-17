@@ -24,9 +24,13 @@ const Home=()=>{
   const [searchTerm, setSearchTerm] = useState('');
   
   useEffect(()=> {
-    const filtroCidade = data.filter((item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
+    const filtroCidade = data.filter((item) => {
+    if (item.cidade) {
+        return item.cidade.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+    return false; 
+});
 
     const indexOfLastItem = activePage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
