@@ -21,64 +21,92 @@ const Registro=()=>{
   return (
     <section className='main'>
 
-    <section className='container'>
+    <section className='container'> 
       <h1> Cadastro de pets</h1>
     </section>
 
      <section className='container'>
         <section className='row'>
-
-              <div className='col-6 d-flex'>
+          <div className='col-1'></div>
+              <div className='col-5 d-flex'>
                 <form>
-                  <label>Instituições</label><br/>
+                  <label>Instituição</label><br/>
                   <input type="text" />
                 </form>
               </div>
 
-              <div className='col-6 d-flex'>
+              <div className='col-5 d-flex'>
                 <form>
                   <label>Nome do animal</label><br/>
                   <input type="text" />
                 </form>
               </div>
+          <div className='col-1'></div>
 
           </section> 
       </section>
 
       <section className='container'>
         <section className='row'>
+          <div className='col-1'></div>
           
-          <div className="col-6 d-flex">
-          <p>Especie</p>
+          <div className="col-5">
+          <label>Especie</label>
             <form>
-              <input type="radio" name='Canino'/>
-              <label >Canino</label>
-              <input type="radio" name='Canino'/>
-              <label >Felino</label>
+              <div class="opcoes_lista">
+
+              <div class="col-2 d-inline-flex">
+                
+                  <input type="radio" name='Canino'/>
+                  <label>Canino</label>
+                
+              </div> 
+              
+              <div class="col-2 d-inline-flex">
+                <input type="radio" name='Canino'/>
+                <label>Felino</label>
+              </div>
+              
+              </div>
+
             </form>
           </div>
 
-          <div className='col-6 d-flex'>
-          <p>Tamanho do animal</p>
+          <div className='col-5'>
+          <label>Tamanho do animal</label>
             <form>
-              <input type="radio" name='Canino'/>
-              <label >Pequeno</label>
-              <input type="radio" name='Canino'/>
-              <label >Medio</label>
-              <input type="radio" name='Canino'/>
-              <label >Grande</label>
+              <div class="opcoes_lista">
+
+                <div class="col-2 d-inline-flex">
+                  <input type="radio" name='Canino'/>
+                  <label >Pequeno</label>
+                </div>
+              
+              <div class="col-2 d-inline-flex">
+                <input type="radio" name='Canino'/>
+                <label >Medio</label>
+              </div>
+              
+              <div class="col-2 d-inline-flex">
+                <input type="radio" name='Canino'/>
+                <label >Grande</label>
+              </div>
+              
+              </div>
+              
             </form>    
           </div>
-
+          <div className='col-1'></div>
           </section> 
       </section>
 
       <section className='container'>
         <section className='row'>
-
-            <div className="col-6 d-flex">
+          <div className='col-1'></div>
+            <div className="col-5">
+              <label htmlFor="image-upload">Selecione uma imagem:</label>
               <form>
-                <label htmlFor="image-upload">Selecione uma imagem:</label>
+                
                 <input
                   type="file"
                   id="image-upload"
@@ -88,27 +116,26 @@ const Registro=()=>{
                 {selectedImage && (
                   <div className="image-preview">
                     <div className="image-container">
-                      <img src={selectedImage} alt="Imagem selecionada" />
-                    </div>
-                    <div className="thumbnail">
-                      <img src={selectedImage} alt="Thumbnail" />
+                      <img src={selectedImage} alt="Imagem selecionada" class="imagem"/>
                     </div>
                   </div>
-                )}
+                )}  
               </form>
             </div>
 
-              <div className='col-6 d-flex'>
-                <form>
+              <div className='col-5 d-flex'>
+                <form id="textarea">
                   <label>Descrição</label><br/>
-                  <input type="text" />
+
+                  <textarea class="descricao" name="descrição" form="textarea" placeholder="Digite algo aqui"></textarea>
+
                 </form>
               </div>
-
+            <div className='col-1'></div>
           </section> 
       </section>
 
-      <section className='container'>
+      <section className='container d-flex botao1'>
         <button>Cadastrar</button>
       </section>
 
