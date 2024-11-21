@@ -16,14 +16,14 @@ const Pet=()=>{
   return (
     <section className='main'>
 
-      <section className="container">
-          <button onClick={() => navigate(-1)} className='botao'>Voltar</button>
+      <section className="container d-flex botao" >
+          <button onClick={() => navigate(-1)} >Voltar</button>
       </section> 
       
-      <section className='container'>
+      <section className='container borda'>
         <section className='row'>
 
-              <div className='col-8 d-flex'>
+              <div className='col-8 d-flex '>
                   <img src={item.photo} alt='photo'/>
                   <section className='m-3'>
                     <h1 className='titulo'>{item.name}</h1>
@@ -34,10 +34,12 @@ const Pet=()=>{
           </section> 
       </section>
 
-      <section className='container'>
+      <section className='borda'>
+
+      <section className='container '>
         <section className='row'>
 
-          <div className='col-6'>
+          <div className='col-6 '>
               <h3>Animal size:</h3>
               <p>{item.size}</p>
           </div>
@@ -89,6 +91,7 @@ const Pet=()=>{
           </section> 
       </section>
 
+    </section>
                     
     </section>
             

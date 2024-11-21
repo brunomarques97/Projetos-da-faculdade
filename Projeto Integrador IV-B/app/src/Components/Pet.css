@@ -1,13 +1,11 @@
 .botao{
-    background-color: red;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 4px;
-    position: absolute;
-    top: 100px; 
-    right: 20px; 
-    z-index: 999; 
+    justify-content: end;
+}
+button{
+    height: 50px;
+    width: 100px;
+}
+img{
+    height: 300px;
+    width: 300px;
 }
