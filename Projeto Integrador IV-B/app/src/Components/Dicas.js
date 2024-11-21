@@ -13,7 +13,7 @@ const Dicas=()=>{
 
       <Container>
           
-            <section >
+            <section className='borda'>
               <h2 className="text-center">Como Escolher o Pet Ideal</h2>
                 <h3>Avalie seu estilo de vida:</h3>
                 <ul>
@@ -24,7 +24,7 @@ const Dicas=()=>{
                 </ul>
             </section>
 
-            <section >
+            <section className='borda'>
               <h2 className="text-center">Dicas para Cuidar do Seu Pet</h2>
                 <section>
                   <h3>Alimentação Saudável</h3>

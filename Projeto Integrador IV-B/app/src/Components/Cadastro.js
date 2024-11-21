@@ -24,8 +24,8 @@ const Registro=()=>{
     <section className='container'> 
       <h1> Cadastro de pets</h1>
     </section>
-
-     <section className='container'>
+    <section className='area'>
+     <section className='container '>
         <section className='row'>
           <div className='col-1'></div>
               <div className='col-5 d-flex'>
@@ -138,7 +138,7 @@ const Registro=()=>{
       <section className='container d-flex botao1'>
         <button>Cadastrar</button>
       </section>
-
+    </section>
     </section>
   );
 }

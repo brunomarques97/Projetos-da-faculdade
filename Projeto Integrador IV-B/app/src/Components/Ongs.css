@@ -5,3 +5,9 @@
 th,h1{
     text-align: center;
 }
+tr{
+    background-color: white;
+}
+th{
+    background-color: lightgray;
+}

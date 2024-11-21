@@ -8,7 +8,7 @@ function Header() {
     <Navbar style={{backgroundColor:'gray'}}>
       <Container>
         <Navbar.Brand href="/">
-          <img src={img} alt="logo" style={{ width: '50px', height: '50px' }}/>
+          <img src={img} alt="logo" style={{ width: '65px', height: '65px' }}/>
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/Ongs">Ongs</Nav.Link>

@@ -35,3 +35,7 @@
     height: 150px;
 
 }
+.area{
+    border: 2px black solid;
+    border-radius: 20px;
+}

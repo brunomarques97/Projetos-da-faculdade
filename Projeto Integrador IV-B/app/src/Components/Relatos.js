@@ -12,7 +12,7 @@ const Relatos=()=>{
         <h1>Relatos</h1>
       </section>
 
-      <section className='container d-flex'>
+      <section className='container d-flex borda'>
          
         <img src={avatar1} alt="avatar1" style={{ width: '100px', height: '100px' }}/>
               
@@ -24,7 +24,7 @@ const Relatos=()=>{
 
       </section>
 
-      <section className='container d-flex'>
+      <section className='container d-flex borda'>
          
         <img src={avatar2} alt="avatar2" style={{ width: '100px', height: '100px' }}/>
               
@@ -36,7 +36,7 @@ const Relatos=()=>{
 
       </section>
 
-      <section className='container d-flex'>
+      <section className='container d-flex borda'>
          
         <img src={avatar3} alt="avatar3" style={{ width: '100px', height: '100px' }}/>
               
