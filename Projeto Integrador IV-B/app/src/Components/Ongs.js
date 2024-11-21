@@ -19,8 +19,9 @@ const Ongs=()=>{
       <tbody>
         {data.map((item, index) => (
           <tr key={index}>
-            <td className='tabela'>Rua:{item.rua} | Cidade:{item.cidade} | Estado:{item.estado} | Pais:{item.pais}</td>
-            <td className='tabela'>Email:{item.email} | Numero:{item.telefone}</td>
+            <td className='tabela'>Road:{item.rua} | City:{item.cidade} | State:{item.estado} | Country:{item.pais}</td>
+            <td className='tabela'>Email:{item.email} | 
+            Number:{item.telefone}</td>
           </tr>
         ))}
       </tbody>

@@ -12,9 +12,9 @@ function Header() {
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/Ongs">Ongs</Nav.Link>
-          <Nav.Link href="/Dicas">Dicas</Nav.Link>
-          <Nav.Link href="/Cadastro">Cadastro</Nav.Link>
-          <Nav.Link href="/Relatos">Relatos</Nav.Link>
+          <Nav.Link href="/Dicas">Clue</Nav.Link>
+          <Nav.Link href="/Cadastro">Register</Nav.Link>
+          <Nav.Link href="/Relatos">Storys</Nav.Link>
         </Nav>
       </Container>
     </Navbar>

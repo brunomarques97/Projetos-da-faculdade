@@ -17,7 +17,7 @@ const Pet=()=>{
     <section className='main'>
 
       <section className="container d-flex botao" >
-          <button onClick={() => navigate(-1)} >Voltar</button>
+          <button onClick={() => navigate(-1)} >return</button>
       </section> 
       
       <section className='container borda'>

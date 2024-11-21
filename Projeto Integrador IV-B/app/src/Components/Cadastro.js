@@ -22,7 +22,7 @@ const Registro=()=>{
     <section className='main'>
 
     <section className='container'> 
-      <h1> Cadastro de pets</h1>
+      <h1>Pet registration</h1>
     </section>
     <section className='area'>
      <section className='container '>
@@ -30,14 +30,14 @@ const Registro=()=>{
           <div className='col-1'></div>
               <div className='col-5 d-flex'>
                 <form>
-                  <label>Instituição</label><br/>
+                  <label>Institution</label><br/>
                   <input type="text" />
                 </form>
               </div>
 
               <div className='col-5 d-flex'>
                 <form>
-                  <label>Nome do animal</label><br/>
+                  <label>Animal name</label><br/>
                   <input type="text" />
                 </form>
               </div>
@@ -51,20 +51,20 @@ const Registro=()=>{
           <div className='col-1'></div>
           
           <div className="col-5">
-          <label>Especie</label>
+          <label>Species</label>
             <form>
               <div class="opcoes_lista">
 
               <div class="col-2 d-inline-flex">
                 
                   <input type="radio" name='Canino'/>
-                  <label>Canino</label>
+                  <label>Canine</label>
                 
               </div> 
               
               <div class="col-2 d-inline-flex">
                 <input type="radio" name='Canino'/>
-                <label>Felino</label>
+                <label>Feline</label>
               </div>
               
               </div>
@@ -73,23 +73,23 @@ const Registro=()=>{
           </div>
 
           <div className='col-5'>
-          <label>Tamanho do animal</label>
+          <label>Animal size</label>
             <form>
               <div class="opcoes_lista">
 
                 <div class="col-2 d-inline-flex">
                   <input type="radio" name='Canino'/>
-                  <label >Pequeno</label>
+                  <label >Small</label>
                 </div>
               
               <div class="col-2 d-inline-flex">
                 <input type="radio" name='Canino'/>
-                <label >Medio</label>
+                <label >Half</label>
               </div>
               
               <div class="col-2 d-inline-flex">
                 <input type="radio" name='Canino'/>
-                <label >Grande</label>
+                <label >Big</label>
               </div>
               
               </div>
@@ -104,7 +104,7 @@ const Registro=()=>{
         <section className='row'>
           <div className='col-1'></div>
             <div className="col-5">
-              <label htmlFor="image-upload">Selecione uma imagem:</label>
+              <label htmlFor="image-upload">Select an image:</label>
               <form>
                 
                 <input
@@ -125,9 +125,9 @@ const Registro=()=>{
 
               <div className='col-5 d-flex'>
                 <form id="textarea">
-                  <label>Descrição</label><br/>
+                  <label>Description</label><br/>
 
-                  <textarea class="descricao" name="descrição" form="textarea" placeholder="Digite algo aqui"></textarea>
+                  <textarea class="descricao" name="descrição" form="textarea" placeholder="Type something here"></textarea>
 
                 </form>
               </div>
@@ -136,7 +136,7 @@ const Registro=()=>{
       </section>
 
       <section className='container d-flex botao1'>
-        <button>Cadastrar</button>
+        <button>Register</button>
       </section>
     </section>
     </section>

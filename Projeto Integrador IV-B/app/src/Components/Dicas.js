@@ -8,38 +8,37 @@ const Dicas=()=>{
   return (
     <section className='main'>
       <section className='container'>
-        <h1>Dicas</h1>
+        <h1>Clue</h1>
       </section>
 
       <Container>
           
             <section className='borda'>
-              <h2 className="text-center">Como Escolher o Pet Ideal</h2>
-                <h3>Avalie seu estilo de vida:</h3>
+              <h2 className="text-center">How to Choose the Ideal Pet</h2>
+                <h3>Evaluate your lifestyle:</h3>
                 <ul>
-                  <li>Tempo disponível: Você tem tempo para passear, brincar e cuidar do seu pet?</li>
-                  <li>Espaço físico: Seu apartamento ou casa é grande o suficiente para acomodar um animal?</li>
-                  <li>Rotina: Suas atividades diárias são compatíveis com os cuidados que um pet exige?</li>
-                  <li>Orçamento: Você está preparado para os custos com alimentação, vacinas, consultas veterinárias e outros gastos?</li>
+                  <li>Available time: Do you have time to walk, play with and take care of your pet?</li>
+                  <li>Physical space: Is your apartment or house big enough to accommodate an animal?</li>
+                  <li>Routine: Are your daily activities compatible with the care a pet requires?</li>
+                  <li>Budget: Are you prepared for the costs of food, vaccinations, veterinary visits and other expenses?</li>
                 </ul>
             </section>
 
             <section className='borda'>
-              <h2 className="text-center">Dicas para Cuidar do Seu Pet</h2>
+              <h2 className="text-center">Tips for Taking Care of Your Pet</h2>
                 <section>
-                  <h3>Alimentação Saudável</h3>
-                  <li>Ofereça uma dieta equilibrada e adequada para o tipo e idade
-                  do seu pet.</li>
+                  <h3>Healthy Eating</h3>
+                  <li>Provide a balanced diet suitable for your pet's type and age.</li>
                 </section>
 
                 <section>
-                  <h3>Exercício Diário</h3>
-                  <li> Caminhadas e brincadeiras mantêm seu pet ativo e saudável.</li>
+                  <h3>Daily Exercise</h3>
+                  <li> Walks and play keep your pet active and healthy.</li>
                 </section>
 
                 <section>
-                  <h3>Visitas ao Veterinário</h3>
-                  <li>Leve seu pet ao veterinário regularmente para check-ups.</li>
+                  <h3>Visits to the Vet</h3>
+                  <li>Take your pet to the vet regularly for check-ups.</li>
                 </section>
                 
             </section>
