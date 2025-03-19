@@ -6,8 +6,6 @@ import Pagination from 'react-bootstrap/Pagination';
 import { Link } from 'react-router-dom';
 
 
-import data from '../data/pets.json'
-
 const Home=()=>{  
   const [activePage, setActivePage] = useState(1);
   const [Pages,setPages] = useState(1);
@@ -22,7 +20,17 @@ const Home=()=>{
   const isLastPage = activePage === Pages;
 
   const [searchTerm, setSearchTerm] = useState('');
-  
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+      fetch('http://localhost/conexao.php') 
+          .then(response => response.json())
+          .then(data => setData(data))
+          .catch(error => console.error('Erro:', error));
+  }, []);
+
+
   useEffect(()=> {
 
     const filtroCidade = data.filter((item) => {
