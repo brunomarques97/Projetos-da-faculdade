@@ -1,0 +1,11 @@
+.botao{
+    justify-content: end;
+}
+button{
+    height: 50px;
+    width: 100px;
+}
+img{
+    height: 300px;
+    width: 300px;
+}

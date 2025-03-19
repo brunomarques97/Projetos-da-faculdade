@@ -1,0 +1,13 @@
+.tabela{
+    margin: 0 20px;
+    border: black 5px solid;
+}
+th,h1{
+    text-align: center;
+}
+tr{
+    background-color: white;
+}
+th{
+    background-color: lightgray;
+}
