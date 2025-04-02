@@ -9,9 +9,8 @@ const Pet=()=>{
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const item = data.find((item) => item.id === parseInt(id));
+  const item = data.find((item) => item.id === (id));
 
-  console.log(item)
 
   return (
     <section className='main'>

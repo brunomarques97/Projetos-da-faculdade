@@ -24,7 +24,7 @@ const Home=()=>{
   const [data, setData] = useState([]);
 
   useEffect(() => {
-      fetch('http://localhost/conexao.php') 
+      fetch('http://localhost/pets/dados.php?acao=listar&tabela=dados') 
           .then(response => response.json())
           .then(data => setData(data))
           .catch(error => console.error('Erro:', error));
@@ -58,7 +58,7 @@ const Home=()=>{
               <input
                 className='search'
                 type="text"
-                placeholder="Search..."
+                placeholder="Search  City..."
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
               />
