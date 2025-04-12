@@ -1,3 +1,10 @@
+.borda div{
+    flex-direction: column;
+    align-items: baseline;
+}
+.borda p{
+    margin: auto;
+}
 .botao{
     justify-content: end;
 }
@@ -5,7 +12,20 @@ button{
     height: 50px;
     width: 100px;
 }
+.title-pet{
+    background-color: unset;
+}
 img{
-    height: 300px;
-    width: 300px;
+    height: 250px;
+    width: 15rem;
+}
+.item{
+    margin: 25px auto;
+} 
+
+@media screen and (min-width: 768px) {
+    .borda div{
+        flex-direction: row;
+        align-items: unset;
+    }
 }

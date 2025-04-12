@@ -3,4 +3,6 @@
     border-radius: 20px;
     padding: 20px;
     background-color: lightgray;
+    width: 80vw !important;
+    margin: 20px 0;
 }

@@ -24,8 +24,9 @@ const Pet=()=>{
 
               <div className='col-8 d-flex '>
                   <img src={item.photo} alt='photo'/>
+                  
                   <section className='m-3'>
-                    <h1 className='titulo'>{item.name}</h1>
+                    <h1 className='title-pet'>{item.name}</h1>
                     <p>{item.Raca_primaria} - {item.cidade}</p>
                   </section>
                   
@@ -38,12 +39,12 @@ const Pet=()=>{
       <section className='container '>
         <section className='row'>
 
-          <div className='col-6 '>
+          <div className='item col-12 col-md-6'>
               <h3>Animal size:</h3>
               <p>{item.size}</p>
           </div>
 
-          <div className='col-6'>
+              <div className='item col-12 col-md-6'>
               <h3>Age of animal:</h3>
               <p>{item.age}</p>
           </div>
@@ -54,12 +55,12 @@ const Pet=()=>{
       <section className='container'>
         <section className='row'>
 
-          <div className='col-6'>
+          <div className='item col-12 col-md-6 '>
               <h3>Hair size:</h3>
               <p>{item.coat}</p>
           </div>
 
-          <div className='col-6'>
+          <div className='item col-12 col-md-6 '>
               <h3>Animal genus:</h3>
               <p>{item.gender}</p>
           </div>
@@ -70,7 +71,7 @@ const Pet=()=>{
       <section className='container'>
         <section className='row'>
 
-          <div className='col-6'>
+          <div className=' item col-12 col-md-6 '>
               <h3>Contact:</h3>
               <div>
                 <h6>E-mail:</h6>
@@ -82,7 +83,7 @@ const Pet=()=>{
               </div>
           </div>
 
-          <div className='col-6'>
+          <div className='item col-12 col-md-6 '>
               <h3>Type of animal:</h3>
               <p>{item.type}</p>
           </div>

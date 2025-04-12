@@ -8,7 +8,9 @@ const Ongs=()=>{
 
   return (
     <section className='main container'>
-      <h1>Ongs</h1>
+      <section className='titles'>
+        <h1>Ongs</h1>
+      </section>
       <table>
       <thead>
         <tr>

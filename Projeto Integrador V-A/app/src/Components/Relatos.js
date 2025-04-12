@@ -8,7 +8,7 @@ const Relatos=()=>{
 
   return (
     <section className='main'>
-      <section className='container'>
+      <section className='titles'>
         <h1>Storys</h1>
       </section>
 
