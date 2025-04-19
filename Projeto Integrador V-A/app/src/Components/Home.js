@@ -24,18 +24,19 @@ const Home=()=>{
   const [data, setData] = useState([]);
 
   useEffect(() => {
-      fetch('http://localhost/pets/dados.php?acao=listar&tabela=dados') 
+      fetch('http://localhost/pets/dados.php?acao=listar&tabela=dados&tabela_relacionada=ongs&coluna_fk=ong')
           .then(response => response.json())
           .then(data => setData(data))
           .catch(error => console.error('Erro:', error));
   }, []);
-
+  
+    console.log(data[0])
 
   useEffect(()=> {
 
     const filtroCidade = data.filter((item) => {
-    if (item.cidade) {
-        return item.cidade.toLowerCase().includes(searchTerm.toLowerCase());
+    if (item.Cidade) {
+        return item.Cidade.toLowerCase().includes(searchTerm.toLowerCase());
     }
     return false; 
 });
@@ -74,7 +75,7 @@ const Home=()=>{
                       <img src={item.photo} alt='imagem' className='capa' style={{ width: '10em', height: '10em' }}/>
                       <h2 className='card-title'>{item.name}</h2>
                       <p className='short-descricao'>
-                       {item.cidade}
+                       {item.Cidade}
                       </p>
                     </div>
                   </Link>

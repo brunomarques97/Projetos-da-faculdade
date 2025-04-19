@@ -27,7 +27,7 @@ const Pet=()=>{
                   
                   <section className='m-3'>
                     <h1 className='title-pet'>{item.name}</h1>
-                    <p>{item.Raca_primaria} - {item.cidade}</p>
+                    <p>{item.Raca_primaria} - {item.Cidade}</p>
                   </section>
                   
               </div>
@@ -75,11 +75,11 @@ const Pet=()=>{
               <h3>Contact:</h3>
               <div>
                 <h6>E-mail:</h6>
-                <p>{item.email}</p>
+                <p>{item.Email}</p>
               </div>
               <div>
                 <h6>Number:</h6>
-                <p>{item.telefone ? item.telefone : 'Telephone number not provided'}</p>
+                <p>{item.Numero ? item.Numero : 'Telephone number not provided'}</p>
               </div>
           </div>
 
