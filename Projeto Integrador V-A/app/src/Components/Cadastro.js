@@ -1,17 +1,27 @@
 import './Cadastro.css';
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 const Registro=()=>{
   const [species, setSpecies] = useState('');
   const [animalName, setAnimalName] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [age, setAGE] = useState('');
   const [gender, setGender] = useState('');
   const [animalSize, setAnimalSize] = useState('');
   const [coat, setCoat] = useState('');
   const [raca, setRaca] = useState('');
   const [institution, setInstitution] = useState('');
+
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+      fetch('http://localhost/pets/dados.php?acao=listar&tabela=ongs')
+          .then(response => response.json())
+          .then(data => setData(data))
+          .catch(error => console.error('Erro:', error));
+  }, []);
 
   const limparFormulario = () => {
     setSpecies('');
@@ -55,29 +65,69 @@ const Registro=()=>{
   };
 
   const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setSelectedImage(URL.createObjectURL(event.target.files[0]));
+    const file = event.target.files[0];
+
+    if (file) {
+      setImageFile(file); // Armazena o objeto File para upload
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setSelectedImage(reader.result); // Previsualização da imagem como URL de dados
+      };
+
+      reader.readAsDataURL(file);
     } else {
       setSelectedImage(null);
+      setImageFile(null);
     }
   };
 
+  const handleSubmit = async (event) => {
 
-  const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = {
-      institution,
-      animalName,
-      species,
-      animalSize,
-      selectedImage,
-      age,
-    }
-    console.log('Dados do formulário:', formData);
-    // Aqui você pode enviar os dados para o seu backend
 
-    alert("pet registrado")
-    limparFormulario()
+    const formData = new FormData();
+      formData.append('type', species);
+      formData.append('name', animalName);
+
+      if (imageFile) {
+          formData.append('photo', imageFile); 
+      }
+
+      formData.append('age', age);
+      formData.append('gender', gender);
+      formData.append('size', animalSize);
+      formData.append('coat', coat);
+      formData.append('Raca_primaria', raca); 
+      formData.append('Ong', institution);
+
+    try {
+      const response = await fetch('http://localhost/pets/envio.php', {
+        method: 'POST',
+        body: formData, // Envia o objeto FormData no corpo
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error(`Erro ao enviar dados para o servidor: ${response.status} - ${errorMessage}`);
+        alert(`Erro ao registrar o pet: ${errorMessage}`);
+        return;
+      }
+
+      const dados = await response.json();
+      console.log('Resposta do servidor:', dados);
+
+      if (dados.status === 'success') {
+        alert('Pet registrado com sucesso!');
+        limparFormulario();
+      } else {
+        alert(`Erro ao registrar o pet: ${dados.message || 'Erro desconhecido'}`);
+      }
+
+    } catch (error) {
+      console.error('Erro de rede ou ao processar a resposta:', error);
+      alert('Erro ao conectar com o servidor.');
+    }
   };
  
   return (
@@ -96,13 +146,19 @@ const Registro=()=>{
           
           <div className='col-10 col-md-5  d-flex' >
             <form>
-              <label htmlFor="institution">Institution</label><br/>
-              <input
-                type="text"
-                id="institution"
-                value={institution}
-                onChange={handleInstitutionChange}
-              />
+              <label htmlFor="institution">Institution</label><br />
+              <select
+                  id="institution"
+                  value={institution}
+                  onChange={handleInstitutionChange}
+              >
+                  <option value="">Selecione uma instituição</option>
+                  {data.map((institution) => (
+                      <option key={institution.id} value={institution.ID}>
+                          {institution.Nome}
+                      </option>
+                  ))}
+              </select>
             </form>
           </div>
 
@@ -209,7 +265,7 @@ const Registro=()=>{
               {selectedImage && (
                 <div className="image-preview">
                   <div className="image-container">
-                    <img src={selectedImage} alt="Imagem selecionada" className="imagem"/>
+                    <img src={selectedImage} alt="Imagem selecionada" className="imagem" style={{ maxWidth: '200px', maxHeight: '200px' }} />
                   </div>
                 </div>
               )}
