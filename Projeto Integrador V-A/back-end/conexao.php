@@ -1,28 +1,24 @@
 <?php
-    header('Content-Type: application/json'); 
+    header("Access-Control-Allow-Origin: *"); 
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
 
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "pets";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = null; 
 
-    if ($conn->connect_error) {
-        die(json_encode(['error' => 'Falha na conexão: ' . $conn->connect_error]));
-    }
+    try {
+        $conn = new mysqli($servername, $username, $password, $dbname);
 
-    $sql = "SELECT * FROM sua_tabela";
-    $result = $conn->query($sql);
+        $conn->set_charset("utf8");
 
-    $data = [];
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
+        if ($conn->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $conn->connect_error);
         }
-    }
-
-    echo json_encode($data);
-
-    $conn->close();
-    ?>
+        } catch (Exception $e) {
+        die("Erro ao conectar com o banco de dados: " . $e->getMessage());
+}   
+?>
