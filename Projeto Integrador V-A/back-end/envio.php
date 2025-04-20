@@ -43,7 +43,7 @@ $racaPrimaria = sanitizeString($_POST['Raca_primaria'] ?? '');
 $ong = sanitizeString($_POST['Ong'] ?? '');
 
 // Validação mínima
-if (empty($type) || empty($name)) || empty($ong) {
+if (empty($type) || empty($name) || empty($ong)) {
     http_response_code(400);
     echo json_encode(['status' => 'error', 'message' => 'Os campos "type" , "name" , "ong são obrigatórios.']);
     exit();
