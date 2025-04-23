@@ -1,8 +1,7 @@
 import './Cadastro.css';
+import React, { useState, useEffect, useCallback } from 'react';
 
-import React, { useState,useEffect } from 'react';
-
-const Registro=()=>{
+const Cadastro = () => {
   const [species, setSpecies] = useState('');
   const [animalName, setAnimalName] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
@@ -13,403 +12,251 @@ const Registro=()=>{
   const [coat, setCoat] = useState('');
   const [raca, setRaca] = useState('');
   const [institution, setInstitution] = useState('');
+  const [ongs, setOngs] = useState([]);
+  const [loadingOngs, setLoadingOngs] = useState(true);
+  const [errorOngs, setErrorOngs] = useState(null);
 
-  const [data, setData] = useState([]);
-  
-  useEffect(() => {
-      fetch('http://localhost/pets/dados.php?acao=listar&tabela=ongs')
-          .then(response => response.json())
-          .then(data => setData(data))
-          .catch(error => console.error('Erro:', error));
-  }, []);
-
-  const limparFormulario = () => {
+  const limparCampos = () => {
     setSpecies('');
     setAnimalName('');
-    setSelectedImage(null)
+    setSelectedImage(null);
+    setImageFile(null);
     setAGE('');
     setGender('');
     setAnimalSize('');
     setCoat('');
-    setRaca('');    
+    setRaca('');
     setInstitution('');
   };
 
-  const handleInstitutionChange = (event) => {
-    setInstitution(event.target.value);
-  };
+  const fetchOngs = useCallback(async () => {
+    setLoadingOngs(true);
+    setErrorOngs(null);
+    try {
+      const response = await fetch('http://localhost/pets/dados.php?acao=listar&tabela=ongs');
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      setOngs(data);
+    } catch (error) {
+      console.error('Erro ao buscar ONGs:', error);
+      setErrorOngs('Erro ao carregar as instituições.');
+    } finally {
+      setLoadingOngs(false);
+    }
+  }, []);
 
-  const handleAnimalNameChange = (event) => {
-    setAnimalName(event.target.value);
-  };
+  useEffect(() => {
+    fetchOngs();
+  }, [fetchOngs]);
 
-  const handleSpeciesChange = (event) => {
-    setSpecies(event.target.value);
-  };
+  const handleInputChange = (setter) => (e) => setter(e.target.value);
 
-  const handleAgeChange = (event) => {
-    setAGE(event.target.value);
-  };
-  const handleGenderChange = (event) => {
-    setGender(event.target.value);
-  };
-  const handleCoatChange = (event) => {
-    setCoat(event.target.value);
-  };
-  const handleRacaChange = (event) => {
-    setRaca(event.target.value);
-  };
-
-  const handleAnimalSizeChange = (event) => {
-    setAnimalSize(event.target.value);
-  };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-
+  const handleImageChange = (e) => {
+    const path = '/img'; // caminho base
+    const file = e.target.files[0];
     if (file) {
-      setImageFile(file); // Armazena o objeto File para upload
+      const fullPath = `${path}/${file.name}`; 
+      setImageFile(fullPath);  
+    
       const reader = new FileReader();
-
       reader.onloadend = () => {
-        setSelectedImage(reader.result); // Previsualização da imagem como URL de dados
+        setSelectedImage(reader.result); 
       };
-
       reader.readAsDataURL(file);
     } else {
       setSelectedImage(null);
       setImageFile(null);
     }
   };
+  
 
-  const handleSubmit = async (event) => {
-
-    event.preventDefault();
-
-    const formData = new FormData();
-      formData.append('type', species);
-      formData.append('name', animalName);
-
-      if (imageFile) {
-          formData.append('photo', imageFile); 
-      }
-
-      formData.append('age', age);
-      formData.append('gender', gender);
-      formData.append('size', animalSize);
-      formData.append('coat', coat);
-      formData.append('Raca_primaria', raca); 
-      formData.append('Ong', institution);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const payload = {
+      type: species,
+      name: animalName,
+      age: age,
+      gender: gender,
+      size: animalSize,
+      coat: coat,
+      Raca_primaria: raca,
+      Ong: institution,
+      photo: imageFile || '',
+    };
 
     try {
       const response = await fetch('http://localhost/pets/envio.php', {
         method: 'POST',
-        body: formData, // Envia o objeto FormData no corpo
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
-
       if (!response.ok) {
         const errorMessage = await response.text();
-        console.error(`Erro ao enviar dados para o servidor: ${response.status} - ${errorMessage}`);
+        console.error(`Erro ao enviar dados: ${response.status} - ${errorMessage}`);
         alert(`Erro ao registrar o pet: ${errorMessage}`);
         return;
       }
 
-      const dados = await response.json();
-      console.log('Resposta do servidor:', dados);
-
-      if (dados.status === 'success') {
-        alert('Pet registrado com sucesso!');
-        limparFormulario();
-      } else {
-        alert(`Erro ao registrar o pet: ${dados.message || 'Erro desconhecido'}`);
-      }
-
+      alert('Pet registrado com sucesso!');
+      limparCampos();
     } catch (error) {
-      console.error('Erro de rede ou ao processar a resposta:', error);
+      console.error('Erro de rede:', error);
       alert('Erro ao conectar com o servidor.');
     }
   };
- 
+
   return (
     <section className='main'>
+      <section className='container titles'>
+        <h1>Pet registration</h1>
+      </section>
 
-    <section className='container titles'> 
-      <h1>Pet registration</h1>
-    </section>
-    
-    <section className='area'>
+      <form className='area' onSubmit={handleSubmit}>
+        <section className='container'>
+          <section className='row'>
+            <div className='col-1'></div>
 
-      <section className='container '>
-        <section className='row'>
-          <div className='col-1'></div>
-          
-          
-          <div className='col-10 col-md-5  d-flex' >
-            <form>
-              <label htmlFor="institution">Institution</label><br />
-              <select
-                  id="institution"
-                  value={institution}
-                  onChange={handleInstitutionChange}
-              >
+            <div className='col-10 col-md-5 d-flex flex-column'>
+              <label htmlFor="institution">Institution</label>
+              {loadingOngs ? (
+                <p>Carregando instituições...</p>
+              ) : errorOngs ? (
+                <p className="error-message">{errorOngs}</p>
+              ) : (
+                <select id="institution" value={institution} onChange={handleInputChange(setInstitution)}>
                   <option value="">Selecione uma instituição</option>
-                  {data.map((institution) => (
-                      <option key={institution.id} value={institution.ID}>
-                          {institution.Nome}
-                      </option>
+                  {ongs.map((ong) => (
+                    <option key={ong.ID} value={ong.ID}>{ong.Nome}</option>
                   ))}
-              </select>
-            </form>
-          </div>
+                </select>
+              )}
+            </div>
 
-          <div className='col-10 col-md-5  d-flex'>
-            <form>
-              <label htmlFor="animalName">Animal name</label><br/>
-              <input
-                type="text"
-                id="animalName"
-                value={animalName}
-                onChange={handleAnimalNameChange}
-              />
-            </form>
-          </div>
-          <div className='col-1'></div>
+            <div className='col-10 col-md-5 d-flex flex-column'>
+              <label htmlFor="animalName">Animal name</label>
+              <input type="text" id="animalName" value={animalName} onChange={handleInputChange(setAnimalName)} />
+            </div>
+            <div className='col-1'></div>
+          </section>
         </section>
-      </section>
 
-      <section className='container'>
-        <section className='row'>
-          <div className='col-1'></div>
+        {/* Species */}
+        <section className='container'>
+          <section className='row'>
+            <div className='col-1'></div>
 
-          <div className="col-10 col-md-5 ">
-            <label>Species</label>
-            <form onChange={handleSpeciesChange}>
+            <div className="col-10 col-md-5">
+              <label>Species</label>
               <div className="opcoes_lista">
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="species"
-                    value="Dog"
-                    checked={species === 'Dog'}
-                  />
-                  <label>Canine</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="species"
-                    value="Cat"
-                    checked={species === 'Cat'}
-                  />
-                  <label>Feline</label>
-                </div>
+                {['Dog', 'Cat'].map((type) => (
+                  <label key={type} className="col-2 d-inline-flex">
+                    <input type="radio" name="species" value={type} checked={species === type} onChange={handleInputChange(setSpecies)} />
+                    {type === 'Dog' ? 'Canine' : 'Feline'}
+                  </label>
+                ))}
               </div>
-            </form>
-          </div>
+            </div>
 
-          <div className='col-10 col-md-5 '>
-            <label>Animal size</label>
-            <form onChange={handleAnimalSizeChange}>
+            <div className='col-10 col-md-5'>
+              <label>Animal size</label>
               <div className="opcoes_lista">
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Small"
-                    checked={animalSize === 'Small'}
-                  />
-                  <label>Small</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Half"
-                    checked={animalSize === 'Half'}
-                  />
-                  <label>Half</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Big"
-                    checked={animalSize === 'Big'}
-                  />
-                  <label>Big</label>
-                </div>
+                {['Small', 'Half', 'Big'].map((size) => (
+                  <label key={size} className="col-2 d-inline-flex">
+                    <input type="radio" name="animalSize" value={size} checked={animalSize === size} onChange={handleInputChange(setAnimalSize)} />
+                    {size}
+                  </label>
+                ))}
               </div>
-            </form>
-          </div>
-          <div className='col-1'></div>
+            </div>
+
+            <div className='col-1'></div>
+          </section>
         </section>
-      </section>
 
-      <section className='container'>
-        <section className='row'>
-          <div className='col-1'></div>
+        {/* Image Upload & Age */}
+        <section className='container'>
+          <section className='row'>
+            <div className='col-1'></div>
 
-          <div className="col-10 col-md-5">
-            <label htmlFor="image-upload">Select an image:</label>
-            <form>
-              <input
-                type="file"
-                id="image-upload"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
+            <div className="col-10 col-md-5">
+              <label htmlFor="image-upload">Select an image:</label>
+              <input type="file" id="image-upload" accept="image/*" onChange={handleImageChange} />
               {selectedImage && (
                 <div className="image-preview">
-                  <div className="image-container">
-                    <img src={selectedImage} alt="Imagem selecionada" className="imagem" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                  </div>
+                  <img src={selectedImage} alt="Imagem selecionada" className="imagem" style={{ maxWidth: '200px', maxHeight: '200px' }} />
                 </div>
               )}
-            </form>
-          </div>
+            </div>
 
-          <div className='col-10 col-md-5 '>
-            <label>Age</label>
-            <form onChange={handleAgeChange}>
+            <div className='col-10 col-md-5'>
+              <label>Age</label>
               <div className="opcoes_lista">
-                
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Young"
-                    checked={age === 'young'}
-                  />
-                  <label>Young</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Adult"
-                    checked={age === 'adult'}
-                  />
-                  <label>Adult</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Elderly"
-                    checked={age === 'elderly'}
-                  />
-                  <label>Elderly</label>
-                </div>
+                {['Young', 'Adult', 'Elderly'].map((value) => (
+                  <label key={value} className="col-2 d-inline-flex">
+                    <input type="radio" name="age" value={value} checked={age === value} onChange={handleInputChange(setAGE)} />
+                    {value}
+                  </label>
+                ))}
               </div>
-            </form>
-          </div>
-          
-          <div className='col-1'></div>
+            </div>
+
+            <div className='col-1'></div>
+          </section>
         </section>
-      </section>
 
-      <section className='container'>
-        <section className='row'>
-          <div className='col-1'></div>
+        {/* Gender & Coat */}
+        <section className='container'>
+          <section className='row'>
+            <div className='col-1'></div>
 
-          <div className="col-10 col-md-5 ">
-            <label>Gender</label>
-            <form onChange={handleGenderChange}>
+            <div className="col-10 col-md-5">
+              <label>Gender</label>
               <div className="opcoes_lista">
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="species"
-                    value="Masculine"
-                    checked={gender === 'Masculine'}
-                  />
-                  <label>Masculine</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="species"
-                    value="Feminine"
-                    checked={gender === 'Feminine'}
-                  />
-                  <label>Feminine</label>
-                </div>
+                {['Masculine', 'Feminine'].map((value) => (
+                  <label key={value} className="col-2 d-inline-flex">
+                    <input type="radio" name="gender" value={value} checked={gender === value} onChange={handleInputChange(setGender)} />
+                    {value}
+                  </label>
+                ))}
               </div>
-            </form>
-          </div>
+            </div>
 
-          <div className='col-10 col-md-5 '>
-            <label>Coat</label>
-            <form onChange={handleCoatChange}>
+            <div className='col-10 col-md-5'>
+              <label>Coat</label>
               <div className="opcoes_lista">
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Small"
-                    checked={coat === 'Small'}
-                  />
-                  <label>Small</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Half"
-                    checked={coat === 'Half'}
-                  />
-                  <label>Half</label>
-                </div>
-
-                <div className="col-2 d-inline-flex">
-                  <input
-                    type="radio"
-                    name="animalSize"
-                    value="Big"
-                    checked={coat === 'Big'}
-                  />
-                  <label>Big</label>
-                </div>
+                {['Small', 'Half', 'Big'].map((value) => (
+                  <label key={value} className="col-2 d-inline-flex">
+                    <input type="radio" name="coat" value={value} checked={coat === value} onChange={handleInputChange(setCoat)} />
+                    {value}
+                  </label>
+                ))}
               </div>
-            </form>
-          </div>
-          <div className='col-1'></div>
+            </div>
+
+            <div className='col-1'></div>
+          </section>
         </section>
-      </section>
 
-      <section className='container '>
-        <section className='row'>
-         
-          <div className='col-12 d-flex'>
-            <form>
-              <label htmlFor="animalName">Breed</label><br/>
-              <input
-                type="text"
-                id="raca"
-                value={raca}
-                onChange={handleRacaChange}
-              />
-            </form>
-          </div>
+        {/* Breed */}
+        <section className='container'>
+          <section className='row'>
+            <div className='col-12 d-flex flex-column'>
+              <label htmlFor="raca">Breed</label>
+              <input type="text" id="raca" value={raca} onChange={handleInputChange(setRaca)} />
+            </div>
+          </section>
         </section>
-      </section>
 
-      <section className='container d-flex botao1'>
-        <button onClick={handleSubmit}>Register</button>
-      </section>
-    </section>
-
+        {/* Submit */}
+        <section className='container d-flex botao1'>
+          <button type="submit">Register</button>
+        </section>
+      </form>
     </section>
   );
-}
-  
-export default Registro;
+};
+
+export default Cadastro;
