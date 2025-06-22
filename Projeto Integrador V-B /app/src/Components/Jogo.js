@@ -6,7 +6,6 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as bootstrap from 'bootstrap';
 import { useCart } from '../context/CartContext';
-// import Carrinho from './Carrinho'; // Remova esta importação, pois o Carrinho é renderizado no App.js
 
 const ensureStringArray = (data) => {
   if (Array.isArray(data)) return data.filter(val => typeof val === 'string');
@@ -37,14 +36,13 @@ const ensureMediaArray = (data) => {
   return [];
 };
 
-const Jogo = ({ handleShowCart }) => { // Recebe handleShowCart como prop
+const Jogo = ({ handleShowCart }) => { 
   const { id } = useParams();
   const { addToCart } = useCart();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [showCart, setShowCart] = useState(false); // Remova este estado, pois é gerenciado no App.js
-
+  
   useEffect(() => {
     if (!id) {
       setLoading(false);
@@ -52,7 +50,7 @@ const Jogo = ({ handleShowCart }) => { // Recebe handleShowCart como prop
     }
 
     setLoading(true);
-    axios.get(`http://localhost:3001/api/item/${id}`)
+    axios.get(`http://localhost:8080/jogo/listar/${id}`)
       .then(response => {
         const rawData = response.data;
         rawData.categories = ensureStringArray(rawData.categories);
@@ -89,10 +87,10 @@ const Jogo = ({ handleShowCart }) => { // Recebe handleShowCart como prop
   }, [item]);
 
   useEffect(() => {
-    if (item?.header_image) {
+    if (item?.headerImage) {
       const banner = document.querySelector('.game-banner');
       if (banner) {
-        banner.style.backgroundImage = `url(${item.header_image})`;
+        banner.style.backgroundImage = `url(${item.headerImage})`;
       }
     }
   }, [item]);
