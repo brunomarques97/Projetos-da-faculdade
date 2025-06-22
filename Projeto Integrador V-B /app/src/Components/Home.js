@@ -3,41 +3,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
 import logo from '../img/logo.png';
 
 const Home = ({ handleShowCart }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const queryParams = useMemo(() => {
-    return new URLSearchParams(location.search);
-  }, [location.search]);
+  const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
 
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(parseInt(queryParams.get('page')) || 1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const pageFromUrl = parseInt(queryParams.get('page'));
-    if ((!isNaN(pageFromUrl) && pageFromUrl !== currentPage) || (queryParams.get('page') === null && currentPage !== 1)) {
-      setCurrentPage(isNaN(pageFromUrl) ? 1 : pageFromUrl);
-    }
-  }, [location.search, currentPage, queryParams]);
+  const [categoria, setCategoria] = useState(queryParams.get('categoria') || 'All');
+  const [plataforma, setPlataforma] = useState(queryParams.get('plataforma') || 'All');
+  const [ordenar, setOrdenar] = useState(queryParams.get('ordenar') || '');
+  const [search, setSearch] = useState(queryParams.get('search') || '');
 
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
       try {
-        const totalPagesResponse = await axios.get('http://localhost:8080/jogo/numeroPaginas');
-        const totalPages = totalPagesResponse.data;
-        setTotalPages(totalPages || 1);
+        const params = {
+          page: currentPage,
+          categoria,
+          plataforma,
+          ordenar,
+          search,
+        };
 
-        const itemsResponse = await axios.get(`http://localhost:8080/jogo/listarPagina/${currentPage}`);
-        setItems(Array.isArray(itemsResponse.data) ? itemsResponse.data : []);
-      } catch (error) {
-        console.error('Erro ao buscar itens:', error);
+        const response = await axios.get('http://localhost:8080/jogo/items', { params });
+        const { items, totalPages } = response.data;
+
+        setItems(items || []);
+        setTotalPages(totalPages || 1);
+      } catch {
         setItems([]);
         setTotalPages(1);
       } finally {
@@ -46,26 +47,21 @@ const Home = ({ handleShowCart }) => {
     };
 
     fetchItems();
-  }, [currentPage]);
-
+  }, [currentPage, categoria, plataforma, ordenar, search]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
-      navigate(`?page=${newPage}`);
+      navigate(`?page=${newPage}&categoria=${categoria}&plataforma=${plataforma}&ordenar=${ordenar}&search=${search}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Carregando...</span>
-        </div>
-      </div>
-    );
-  }
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    navigate(`?page=1&categoria=${categoria}&plataforma=${plataforma}&ordenar=${ordenar}&search=${search}`);
+  };
 
   return (
     <>
@@ -81,10 +77,17 @@ const Home = ({ handleShowCart }) => {
                 Category
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li><button className="dropdown-item">All Categories</button></li>
-                <li><button className="dropdown-item">Action</button></li>
-                <li><button className="dropdown-item">Adventure</button></li>
-                <li><button className="dropdown-item">RPG</button></li>
+                {['All', 'Action', 'Adventure', 'Strategy', 'RPG', 'Simulation', 'Casual', 'Indie', 'Sports', 'Racing', 'Massively Multiplayer', 'Early Access', 'Free to Play', 'Utilities', 'Design & Illustration', 'Animation & Modeling', 'Web Publishing', 'Audio Production', 'Video Production', 'Software Training', 'Education', 'Photo Editing'].map((cat) => (
+                  <li key={cat}>
+                    <button className="dropdown-item" onClick={() => {
+                      setCategoria(cat);
+                      setCurrentPage(1);
+                      navigate(`?page=1&categoria=${cat}&plataforma=${plataforma}&ordenar=${ordenar}&search=${search}`);
+                    }}>
+                      {cat}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -93,10 +96,17 @@ const Home = ({ handleShowCart }) => {
                 Platform
               </button>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li><button className="dropdown-item">All Platforms</button></li>
-                <li><button className="dropdown-item">PC</button></li>
-                <li><button className="dropdown-item">PlayStation</button></li>
-                <li><button className="dropdown-item">Xbox</button></li>
+                {['All', 'PC', 'Mac', 'Linux'].map((plat) => (
+                  <li key={plat}>
+                    <button className="dropdown-item" onClick={() => {
+                      setPlataforma(plat);
+                      setCurrentPage(1);
+                      navigate(`?page=1&categoria=${categoria}&plataforma=${plat}&ordenar=${ordenar}&search=${search}`);
+                    }}>
+                      {plat}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -109,9 +119,16 @@ const Home = ({ handleShowCart }) => {
         <h1 className="text-center mb-4">Games</h1>
 
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-4">
-          <form className="input-group flex-grow-1 me-md-5 mb-3 mb-md-0">
+          <form className="input-group flex-grow-1 me-md-5 mb-3 mb-md-0" onSubmit={handleSearchSubmit}>
             <span className="input-group-text">&#x1F50D;</span>
-            <input type="text" className="form-control" placeholder="Search" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button className="btn btn-outline-secondary" type="submit">Buscar</button>
           </form>
 
           <div className="dropdown">
@@ -119,17 +136,31 @@ const Home = ({ handleShowCart }) => {
               Classify
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><button className="dropdown-item">None</button></li>
-              <li><button className="dropdown-item">Name (A-Z)</button></li>
-              <li><button className="dropdown-item">Name (Z-A)</button></li>
-              <li><button className="dropdown-item">Price (Low to High)</button></li>
-              <li><button className="dropdown-item">Price (High to Low)</button></li>
+              {[
+                { label: 'None', value: '' },
+                { label: 'Name (A-Z)', value: 'name_asc' },
+                { label: 'Name (Z-A)', value: 'name_desc' },
+                { label: 'Release Date (Oldest)', value: 'release_asc' },
+                { label: 'Release Date (Newest)', value: 'release_desc' },
+              ].map(({ label, value }) => (
+                <li key={value}>
+                  <button className="dropdown-item" onClick={() => {
+                    setOrdenar(value);
+                    setCurrentPage(1);
+                    navigate(`?page=1&categoria=${categoria}&plataforma=${plataforma}&ordenar=${value}&search=${search}`);
+                  }}>
+                    {label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {items.length === 0 ? (
-          <p>Nenhum item encontrado.</p>
+        {loading ? (
+          <p className="text-center">Carregando itens...</p>
+        ) : items.length === 0 ? (
+          <p className="text-center">Nenhum item encontrado.</p>
         ) : (
           <section className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3 mb-4">
             {items.map((item) => (
