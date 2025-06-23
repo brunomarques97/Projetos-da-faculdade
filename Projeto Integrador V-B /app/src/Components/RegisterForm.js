@@ -18,30 +18,26 @@ const CadastroScreen = () => {
     releaseDate: '',
     requiredAge: '',
     headerImage: '',
-    movie: '',
-    screenshots: [],
+    movie: '', // Será formatado como ['URL'] ao enviar
+    screenshots: [], // Será formatado como 'URL1, URL2' ao enviar
   });
 
   const [showAddScreenshotModal, setShowAddScreenshotModal] = useState(false);
   const [newScreenshotUrl, setNewScreenshotUrl] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); // Adicionado para mensagens de erro
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (name === 'screenshots') {
-      const newScreenshots = value.split(',').map(url => url.trim()).filter(url => url !== '');
-      setFormData((prevData) => ({
-        ...prevData,
-        screenshots: newScreenshots,
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: type === 'checkbox' ? checked : value,
-      }));
-    }
+    // A lógica de screenshots aqui no handleChange não precisa formatar para string,
+    // pois o estado `screenshots` já é um array. A formatação para string
+    // deve acontecer apenas no handleSubmit.
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleRemoveImage = (fieldName) => {
@@ -72,56 +68,69 @@ const CadastroScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowErrorAlert(false);
+    setErrorMessage(''); // Limpa mensagens de erro anteriores
 
-    const jsonData = {
+    const dataToSend = {
       ...formData,
+      // Mapeia description para detailedDescription no backend
+      detailedDescription: formData.description,
+      description: undefined, // Remove o campo original 'description'
+
+      // Formata categories para uma string separada por vírgulas, se for um array ou string JSON
       categories: (() => {
         try {
           const parsedCategories = JSON.parse(formData.categories);
           return Array.isArray(parsedCategories) ? parsedCategories.join(', ') : formData.categories;
         } catch (error) {
-          console.warn("Could not parse categories as JSON. Sending original value.", error);
+          // Se não for JSON válido, assume que já é uma string e a envia
           return formData.categories;
         }
       })(),
-      
-      languages: (() => {
+
+      // Formata languages para uma string separada por vírgulas, se for um array ou string JSON
+      supportedLanguages: (() => { // Renomeado para supportedLanguages para corresponder à jogEntity
         try {
           const parsedLanguages = JSON.parse(formData.languages);
           return Array.isArray(parsedLanguages) ? parsedLanguages.join(', ') : formData.languages;
         } catch (error) {
-          console.warn("Could not parse languages as JSON. Sending original value.", error);
+          // Se não for JSON válido, assume que já é uma string e a envia
           return formData.languages;
         }
       })(),
+      languages: undefined, // Remove o campo original 'languages'
 
+
+      // Formata screenshots para uma string separada por vírgulas
       screenshots: formData.screenshots.join(', '),
 
-      windows: formData.windows,
-      linux: formData.linux,
-      mac: formData.mac,
-
-      detailedDescription: formData.description,
-      description: undefined,
+      // Formata movie para a string de array ['URL_DO_FILME']
+      movies: formData.movie ? `['${formData.movie}']` : '', // Renomeado para movies para corresponder à jogEntity
+      movie: undefined, // Remove o campo original 'movie'
     };
 
-    Object.keys(jsonData).forEach(key => jsonData[key] === undefined && delete jsonData[key]);
+    // Remove campos com valores undefined ou null antes de enviar
+    Object.keys(dataToSend).forEach(key => {
+      if (dataToSend[key] === undefined || dataToSend[key] === null) {
+        delete dataToSend[key];
+      }
+    });
 
-    console.log('Dados a serem enviados (JSON):', JSON.stringify(jsonData, null, 2));
+    console.log('Dados a serem enviados (JSON):', JSON.stringify(dataToSend, null, 2));
 
     try {
-      const response = await fetch('http://localhost:8080/jogo', {
+      const response = await fetch('http://localhost:8080/jogo', { // Endpoint de cadastro
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(jsonData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (response.ok) {
         const result = await response.json();
         console.log('Jogo cadastrado com sucesso:', result);
         setShowSuccessModal(true);
+        // Limpa o formulário após o sucesso
         setFormData({
           name: '',
           price: '',
@@ -140,10 +149,12 @@ const CadastroScreen = () => {
       } else {
         const errorData = await response.json();
         console.error('Erro ao cadastrar jogo:', response.status, errorData);
+        setErrorMessage(errorData.message || 'Erro ao cadastrar jogo. Por favor, tente novamente.');
         setShowErrorAlert(true);
       }
     } catch (error) {
       console.error('Erro na requisição:', error);
+      setErrorMessage('Erro na requisição. Verifique a conexão ou o servidor.');
       setShowErrorAlert(true);
     }
   };
@@ -166,7 +177,7 @@ const CadastroScreen = () => {
         <Form onSubmit={handleSubmit}>
           {showErrorAlert && (
             <Alert variant="danger" onClose={() => setShowErrorAlert(false)} dismissible>
-              Erro ao cadastrar jogo. Por favor, tente novamente.
+              {errorMessage}
             </Alert>
           )}
 
@@ -188,8 +199,8 @@ const CadastroScreen = () => {
           <Row className="mb-5">
             <Col md={6}>
               <Form.Group controlId="categories">
-                <Form.Label>Categories</Form.Label>
-                <Form.Control as="textarea" rows={2} name="categories" value={formData.categories} onChange={handleChange} placeholder='ex., ["Action", "RPG"]' />
+                <Form.Label>Categories Ex:("Action", "RPG")</Form.Label>
+                <Form.Control as="textarea" rows={2} name="categories" value={formData.categories} onChange={handleChange} placeholder='e.g., ["Action", "RPG"]' />
               </Form.Group>
             </Col>
             <Col md={6}>
@@ -204,7 +215,7 @@ const CadastroScreen = () => {
             <Col md={6}>
               <Form.Group controlId="languages">
                 <Form.Label>Languages </Form.Label>
-                <Form.Control type="text" name="languages" value={formData.languages} onChange={handleChange} placeholder='ex., ["English", "Portuguese"]' />
+                <Form.Control type="text" name="languages" value={formData.languages} onChange={handleChange} placeholder='e.g., ["English", "Portuguese"]' />
               </Form.Group>
             </Col>
             <Col md={6}>
@@ -239,7 +250,7 @@ const CadastroScreen = () => {
                 <Form.Control type="text" name="headerImage" value={formData.headerImage} onChange={handleChange} placeholder="Enter image URL" />
                 {formData.headerImage && (
                   <div className="mt-2 d-flex align-items-center">
-                    <img src={formData.headerImage} alt="Header Preview" style={{ maxWidth: '100px', maxHeight: '100px', marginRight: '10px', border: '1px solid #ddd', objectFit: 'contain' }} />
+                    <img src={formData.headerImage} alt="Header Preview" style={{ maxWidth: '200px', maxHeight: '200px', marginRight: '10px', border: '1px solid #ddd', objectFit: 'contain' }} /> {/* Ajustado o tamanho */}
                     <Button variant="danger" size="sm" onClick={() => handleRemoveImage('headerImage')}>
                       <FaTrash />
                     </Button>
@@ -253,7 +264,7 @@ const CadastroScreen = () => {
                 <Form.Control type="text" name="movie" value={formData.movie} onChange={handleChange} placeholder="Enter video URL" />
                 {formData.movie && (
                   <div className="mt-2 d-flex align-items-center">
-                    <video controls src={formData.movie} style={{ maxWidth: '100px', maxHeight: '100px', marginRight: '10px', border: '1px solid #ddd', objectFit: 'contain' }} />
+                    <video controls src={formData.movie} style={{ maxWidth: '200px', maxHeight: '200px', marginRight: '10px', border: '1px solid #ddd', objectFit: 'contain' }} /> {/* Ajustado o tamanho */}
                     <Button variant="danger" size="sm" onClick={() => handleRemoveImage('movie')}>
                       <FaTrash />
                     </Button>
@@ -265,6 +276,7 @@ const CadastroScreen = () => {
 
           <Form.Group className="mb-4" controlId="screenshots">
             <Form.Label>Screenshots</Form.Label>
+            {/* O input hidden é apenas para fins de formulário, o controle real é via estado */}
             <Form.Control type="hidden" name="screenshots" value={formData.screenshots.join(', ')} onChange={handleChange} />
 
             {formData.screenshots.length === 0 ? (
