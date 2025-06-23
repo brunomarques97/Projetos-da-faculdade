@@ -50,7 +50,7 @@ const Jogo = ({ handleShowCart }) => {
     }
 
     setLoading(true);
-    axios.get(`http://localhost:8080/jogo/listar/${id}`)
+    axios.get(`http://localhost:8080/jogo/${id}`)
       .then(response => {
         const rawData = response.data;
         rawData.categories = ensureStringArray(rawData.categories);
