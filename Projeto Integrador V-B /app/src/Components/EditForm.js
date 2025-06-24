@@ -14,8 +14,8 @@ const EditForm = () => {
     name: '',
     price: '',
     categories: '',
-    description: '', // Mapeia para detailedDescription no backend
-    languages: '', // Mapeia para supportedLanguages no backend
+    description: '',
+    languages: '',
     fullAudioLanguages: '',
     developers: '',
     genres: '',
@@ -24,7 +24,7 @@ const EditForm = () => {
     mac: false,
     releaseDate: '',
     headerImage: '',
-    movie: '', // Mapeia para movies no backend
+    movie: '',
     screenshots: [],
     positive: '',
     negative: '',
@@ -42,8 +42,7 @@ const EditForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
 
-  // Funções de parsing definidas fora do useCallback do fetchGameData
-  const parseStringToArray = (str) => {
+  const parseStringToArray = useCallback((str) => {
     if (!str || typeof str !== 'string') {
       return [];
     }
@@ -63,13 +62,12 @@ const EditForm = () => {
       }
     }
     return [];
-  };
+  }, []);
 
-  const parseMovieString = (str) => {
+  const parseMovieString = useCallback((str) => {
     const urls = parseStringToArray(str);
     return urls.length > 0 ? urls[0] : '';
-  };
-
+  }, [parseStringToArray]);
 
   const fetchGameData = useCallback(async (gameId) => {
     if (!gameId) {
@@ -102,7 +100,6 @@ const EditForm = () => {
       const response = await fetch(`http://localhost:8080/jogo/${gameId}`);
       if (response.ok) {
         const gameData = await response.json();
-        console.log('Dados recebidos do backend (busca por ID):', JSON.stringify(gameData, null, 2));
 
         setFormData({
           id: gameData.id || '',
@@ -144,7 +141,7 @@ const EditForm = () => {
       setShowErrorAlert(true);
       fetchGameData(null);
     }
-  }, [urlId, parseMovieString, parseStringToArray]); // <-- parseMovieString e parseStringToArray adicionados aqui
+  }, [parseMovieString, parseStringToArray]);
 
   useEffect(() => {
     if (urlId && urlId !== formData.id) {
@@ -264,7 +261,7 @@ const EditForm = () => {
       id: formData.id,
       name: formData.name,
       price: formData.price,
-      categories: (() => { // Formata categories para uma string separada por vírgulas, se for um array ou string JSON
+      categories: (() => {
         try {
           const parsedCategories = JSON.parse(formData.categories);
           return Array.isArray(parsedCategories) ? parsedCategories.join(', ') : formData.categories;
@@ -272,8 +269,8 @@ const EditForm = () => {
           return formData.categories;
         }
       })(),
-      detailedDescription: formData.description, // Mapeia para detailedDescription
-      supportedLanguages: (() => { // Formata languages para uma string separada por vírgulas, se for um array ou string JSON
+      detailedDescription: formData.description,
+      supportedLanguages: (() => {
         try {
           const parsedLanguages = JSON.parse(formData.languages);
           return Array.isArray(parsedLanguages) ? parsedLanguages.join(', ') : formData.languages;
@@ -289,15 +286,12 @@ const EditForm = () => {
       mac: formData.mac,
       releaseDate: formData.releaseDate,
       headerImage: formData.headerImage,
-      // Para enviar ao backend, junte o array de screenshots em uma string
       screenshots: formData.screenshots.join(', '),
-      // Para movies, se o backend espera um array string, formate como tal
-      movies: formData.movie ? `['${formData.movie}']` : '', // Formata como array string para o backend
+      movies: formData.movie ? `['${formData.movie}']` : '',
       positive: formData.positive,
       negative: formData.negative,
     };
 
-    // Limpa campos com undefined, null ou strings vazias (exceto 'id')
     Object.keys(dataToSend).forEach(key => {
       if (dataToSend[key] === undefined || dataToSend[key] === null ||
           (typeof dataToSend[key] === 'string' && dataToSend[key].trim() === '' && key !== 'id')) {

@@ -18,7 +18,8 @@ const Home = ({ handleShowCart }) => {
 
   const [categoria, setCategoria] = useState(queryParams.get('categoria') || 'All');
   const [plataforma, setPlataforma] = useState(queryParams.get('plataforma') || 'All');
-  const [ordenar, setOrdenar] = useState(queryParams.get('ordenar') || '');
+  const [orderBy, setOrderBy] = useState(queryParams.get('orderBy') || 'name');
+  const [orderDirection, setOrderDirection] = useState(queryParams.get('orderDirection') || 'asc');
   const [search, setSearch] = useState(queryParams.get('search') || '');
 
   useEffect(() => {
@@ -27,18 +28,19 @@ const Home = ({ handleShowCart }) => {
       try {
         const params = {
           page: currentPage,
-          categoria,
-          plataforma,
-          ordenar,
+          category: categoria,
+          platform: plataforma,
           search,
+          orderBy,
+          orderDirection,
         };
 
-        const response = await axios.get('http://localhost:8080/jogo/items', { params });
-        const { items, totalPages } = response.data;
+        const response = await axios.get('http://localhost:8080/jogo/filtrar', { params });
+        const { jogos, totalPages } = response.data;
 
-        setItems(items || []);
+        setItems(jogos || []);
         setTotalPages(totalPages || 1);
-      } catch {
+      } catch (error) {
         setItems([]);
         setTotalPages(1);
       } finally {
@@ -47,12 +49,12 @@ const Home = ({ handleShowCart }) => {
     };
 
     fetchItems();
-  }, [currentPage, categoria, plataforma, ordenar, search]);
+  }, [currentPage, categoria, plataforma, search, orderBy, orderDirection]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
-      navigate(`?page=${newPage}&categoria=${categoria}&plataforma=${plataforma}&ordenar=${ordenar}&search=${search}`);
+      navigate(`?page=${newPage}&categoria=${categoria}&plataforma=${plataforma}&orderBy=${orderBy}&orderDirection=${orderDirection}&search=${search}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -60,7 +62,7 @@ const Home = ({ handleShowCart }) => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setCurrentPage(1);
-    navigate(`?page=1&categoria=${categoria}&plataforma=${plataforma}&ordenar=${ordenar}&search=${search}`);
+    navigate(`?page=1&categoria=${categoria}&plataforma=${plataforma}&orderBy=${orderBy}&orderDirection=${orderDirection}&search=${search}`);
   };
 
   return (
@@ -82,7 +84,7 @@ const Home = ({ handleShowCart }) => {
                     <button className="dropdown-item" onClick={() => {
                       setCategoria(cat);
                       setCurrentPage(1);
-                      navigate(`?page=1&categoria=${cat}&plataforma=${plataforma}&ordenar=${ordenar}&search=${search}`);
+                      navigate(`?page=1&categoria=${cat}&plataforma=${plataforma}&orderBy=${orderBy}&orderDirection=${orderDirection}&search=${search}`);
                     }}>
                       {cat}
                     </button>
@@ -101,7 +103,7 @@ const Home = ({ handleShowCart }) => {
                     <button className="dropdown-item" onClick={() => {
                       setPlataforma(plat);
                       setCurrentPage(1);
-                      navigate(`?page=1&categoria=${categoria}&plataforma=${plat}&ordenar=${ordenar}&search=${search}`);
+                      navigate(`?page=1&categoria=${categoria}&plataforma=${plat}&orderBy=${orderBy}&orderDirection=${orderDirection}&search=${search}`);
                     }}>
                       {plat}
                     </button>
@@ -137,17 +139,18 @@ const Home = ({ handleShowCart }) => {
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
               {[
-                { label: 'None', value: '' },
-                { label: 'Name (A-Z)', value: 'name_asc' },
-                { label: 'Name (Z-A)', value: 'name_desc' },
-                { label: 'Release Date (Oldest)', value: 'release_asc' },
-                { label: 'Release Date (Newest)', value: 'release_desc' },
-              ].map(({ label, value }) => (
-                <li key={value}>
+                { label: 'None', orderByVal: 'name', orderDirectionVal: 'asc' },
+                { label: 'Name (A-Z)', orderByVal: 'name', orderDirectionVal: 'asc' },
+                { label: 'Name (Z-A)', orderByVal: 'name', orderDirectionVal: 'desc' },
+                { label: 'Release Date (Oldest)', orderByVal: 'release_date', orderDirectionVal: 'asc' },
+                { label: 'Release Date (Newest)', orderByVal: 'release_date', orderDirectionVal: 'desc' },
+              ].map(({ label, orderByVal, orderDirectionVal }) => (
+                <li key={label}>
                   <button className="dropdown-item" onClick={() => {
-                    setOrdenar(value);
+                    setOrderBy(orderByVal);
+                    setOrderDirection(orderDirectionVal);
                     setCurrentPage(1);
-                    navigate(`?page=1&categoria=${categoria}&plataforma=${plataforma}&ordenar=${value}&search=${search}`);
+                    navigate(`?page=1&categoria=${categoria}&plataforma=${plataforma}&orderBy=${orderByVal}&orderDirection=${orderDirectionVal}&search=${search}`);
                   }}>
                     {label}
                   </button>
