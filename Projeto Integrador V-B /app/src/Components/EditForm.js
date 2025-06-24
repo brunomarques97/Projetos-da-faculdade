@@ -41,6 +41,13 @@ const EditForm = () => {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // New state for authentication
+
+  useEffect(() => {
+    // Check for JWT token in localStorage on component mount
+    const token = localStorage.getItem('jwtToken');
+    setIsAuthenticated(!!token); // Set isAuthenticated to true if token exists
+  }, []);
 
   const parseStringToArray = useCallback((str) => {
     if (!str || typeof str !== 'string') {
@@ -251,6 +258,12 @@ const EditForm = () => {
     setShowErrorAlert(false);
     setErrorMessage('');
 
+    if (!isAuthenticated) {
+        setErrorMessage("Você precisa estar logado para editar um jogo.");
+        setShowErrorAlert(true);
+        return;
+    }
+
     if (!formData.id) {
       setErrorMessage('Por favor, selecione ou insira um ID de jogo para editar.');
       setShowErrorAlert(true);
@@ -302,10 +315,12 @@ const EditForm = () => {
     console.log('Dados enviados do frontend para o backend (PUT):', JSON.stringify(dataToSend, null, 2));
 
     try {
+      const token = localStorage.getItem('jwtToken'); // Get token for authorization
       const response = await fetch(`http://localhost:8080/jogo/${formData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include JWT token in Authorization header
         },
         body: JSON.stringify(dataToSend),
       });
@@ -328,6 +343,11 @@ const EditForm = () => {
   };
 
   const handleDeleteClick = () => {
+    if (!isAuthenticated) {
+      setErrorMessage("Você precisa estar logado para deletar um jogo.");
+      setShowErrorAlert(true);
+      return;
+    }
     if (!formData.id) {
       setErrorMessage('Por favor, selecione ou insira um ID de jogo para deletar.');
       setShowErrorAlert(true);
@@ -339,8 +359,12 @@ const EditForm = () => {
   const confirmDeleteAction = async () => {
     setShowConfirmDeleteModal(false);
     try {
+      const token = localStorage.getItem('jwtToken'); // Get token for authorization
       const response = await fetch(`http://localhost:8080/jogo/${formData.id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}` // Include JWT token in Authorization header
+        }
       });
 
       if (response.ok) {
@@ -368,9 +392,11 @@ const EditForm = () => {
           <Link to="/" className="navbar-brand">
             <img src={logo} alt="Sua Logo" style={{ height: '50px' }} />
           </Link>
-          <Link to="/cadastro" className="navbar-brand">
-            <span className="fw-bold fs-4">Register</span>
-          </Link>
+          {isAuthenticated && ( // Conditionally render "Register" link
+            <Link to="/cadastro" className="navbar-brand">
+              <span className="fw-bold fs-4">Register</span>
+            </Link>
+          )}
         </div>
       </header>
 
@@ -587,7 +613,6 @@ const EditForm = () => {
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="newScreenshotUrl">
-            <Form.Label>Screenshot URL</Form.Label>
             <Form.Control
               type="text"
               value={newScreenshotUrl}

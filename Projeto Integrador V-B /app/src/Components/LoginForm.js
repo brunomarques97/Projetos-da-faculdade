@@ -24,18 +24,28 @@ const LoginForm = () => {
     }
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-      if (username === 'adm' && password === '123') {
+      if (response.ok) {
+        const data = await response.json();
+        // Assuming your backend returns a token in 'accessToken'
+        localStorage.setItem('jwtToken', data.accessToken);
         setSuccess('Login realizado com sucesso! Redirecionando...');
         setUsername('');
         setPassword('');
-        navigate('/cadastro');
+        navigate('/cadastro'); // Redirect to the registration page after login
       } else {
-        setError('Nome de usuário ou senha inválidos.');
+        const errorData = await response.json();
+        setError(errorData.message || 'Nome de usuário ou senha inválidos.');
       }
     } catch (err) {
-      setError('Ocorreu um erro ao tentar logar. Tente novamente.');
+      setError('Ocorreu um erro ao tentar logar. Verifique a conexão com o servidor.');
       console.error('Erro na operação de login:', err);
     } finally {
       setIsSubmitting(false);
