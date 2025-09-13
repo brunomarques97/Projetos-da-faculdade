@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Projeto Integrador VI-A</string>
+    <string name="text">integrantes</string>
+    <string name="string">Jogo</string>
+    <string name="titulo">Projeto Integrador \n VI -A </string>
+    <string name="jogo">BRICK \n BREAKER</string>
+    <string name="botao_jogar">Jogar</string>
+    <string name="integrantes">Integrantes do Grupo</string>
+    <string name="nome_bruno">Bruno Cesar Marques de Moraes</string>
+    <string name="nome_paulo">Paulo Roberto Costa Santos</string>
+    <string name="nome_lua">Luã Ismael da Silva</string>
+    <string name="nome_giovani">Giovani Pellin Adami</string>
+    <string name="nome_gustavo">Gustavo de Matos Roldão</string>
+
+</resources>
